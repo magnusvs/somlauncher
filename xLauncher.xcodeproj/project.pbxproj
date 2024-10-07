@@ -14,6 +14,12 @@
 		AC5FC8C92CAF20D6003AC6FC /* xLauncherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5FC8C82CAF20D6003AC6FC /* xLauncherTests.swift */; };
 		AC5FC8D32CAF20D6003AC6FC /* xLauncherUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5FC8D22CAF20D6003AC6FC /* xLauncherUITests.swift */; };
 		AC5FC8D52CAF20D6003AC6FC /* xLauncherUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5FC8D42CAF20D6003AC6FC /* xLauncherUITestsLaunchTests.swift */; };
+		AC89149E2CB14D1300C476B4 /* AppIconProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC89149D2CB14D0C00C476B4 /* AppIconProvider.swift */; };
+		AC8914A02CB3076200C476B4 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC89149F2CB3076000C476B4 /* FileManager.swift */; };
+		AC8914A22CB3083400C476B4 /* SelectAppSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8914A12CB3082F00C476B4 /* SelectAppSheet.swift */; };
+		AC8914A52CB3085C00C476B4 /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8914A42CB3085900C476B4 /* ButtonStyles.swift */; };
+		AC8914A72CB31F9400C476B4 /* SectionStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8914A62CB31F9100C476B4 /* SectionStyles.swift */; };
+		AC9342532CB075EF005AA1C2 /* AppMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9342522CB075EB005AA1C2 /* AppMenu.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +51,12 @@
 		AC5FC8CE2CAF20D6003AC6FC /* xLauncherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = xLauncherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC5FC8D22CAF20D6003AC6FC /* xLauncherUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xLauncherUITests.swift; sourceTree = "<group>"; };
 		AC5FC8D42CAF20D6003AC6FC /* xLauncherUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xLauncherUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		AC89149D2CB14D0C00C476B4 /* AppIconProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconProvider.swift; sourceTree = "<group>"; };
+		AC89149F2CB3076000C476B4 /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
+		AC8914A12CB3082F00C476B4 /* SelectAppSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAppSheet.swift; sourceTree = "<group>"; };
+		AC8914A42CB3085900C476B4 /* ButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
+		AC8914A62CB31F9100C476B4 /* SectionStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionStyles.swift; sourceTree = "<group>"; };
+		AC9342522CB075EB005AA1C2 /* AppMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMenu.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +107,11 @@
 		AC5FC8B52CAF20D4003AC6FC /* xLauncher */ = {
 			isa = PBXGroup;
 			children = (
+				AC8914A32CB3085200C476B4 /* styles */,
+				AC8914A12CB3082F00C476B4 /* SelectAppSheet.swift */,
+				AC89149F2CB3076000C476B4 /* FileManager.swift */,
+				AC89149D2CB14D0C00C476B4 /* AppIconProvider.swift */,
+				AC9342522CB075EB005AA1C2 /* AppMenu.swift */,
 				AC5FC8B62CAF20D4003AC6FC /* xLauncherApp.swift */,
 				AC5FC8B82CAF20D4003AC6FC /* ContentView.swift */,
 				AC5FC8BA2CAF20D6003AC6FC /* Assets.xcassets */,
@@ -127,6 +144,15 @@
 				AC5FC8D42CAF20D6003AC6FC /* xLauncherUITestsLaunchTests.swift */,
 			);
 			path = xLauncherUITests;
+			sourceTree = "<group>";
+		};
+		AC8914A32CB3085200C476B4 /* styles */ = {
+			isa = PBXGroup;
+			children = (
+				AC8914A62CB31F9100C476B4 /* SectionStyles.swift */,
+				AC8914A42CB3085900C476B4 /* ButtonStyles.swift */,
+			);
+			path = styles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,8 +285,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC8914A02CB3076200C476B4 /* FileManager.swift in Sources */,
+				AC9342532CB075EF005AA1C2 /* AppMenu.swift in Sources */,
+				AC89149E2CB14D1300C476B4 /* AppIconProvider.swift in Sources */,
+				AC8914A22CB3083400C476B4 /* SelectAppSheet.swift in Sources */,
+				AC8914A52CB3085C00C476B4 /* ButtonStyles.swift in Sources */,
 				AC5FC8B92CAF20D4003AC6FC /* ContentView.swift in Sources */,
 				AC5FC8B72CAF20D4003AC6FC /* xLauncherApp.swift in Sources */,
+				AC8914A72CB31F9400C476B4 /* SectionStyles.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -421,10 +453,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = xLauncher/xLauncher.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"xLauncher/Preview Content\"";
+				DEVELOPMENT_TEAM = W3448ZZA79;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = xLauncher;
@@ -450,10 +484,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = xLauncher/xLauncher.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"xLauncher/Preview Content\"";
+				DEVELOPMENT_TEAM = W3448ZZA79;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = xLauncher;
