@@ -33,7 +33,8 @@ struct ContentView: View {
     }
 }
 
-struct LaunchAction {
+struct LaunchAction : Hashable {
+    var id: UUID
     var type: LaunchActionType
     var url: URL
 }
@@ -44,99 +45,49 @@ enum LaunchActionType : String {
 }
 
 struct LaunchBuilderView: View {
-    @State private var urlInput: String = ""
-    private let allApps: [InstalledApp]
-    
-    init() {
-        allApps = FileManager.default.getInstalledApps().sorted(by: { left, right in
-            return left.name < right.name
-        })
-    }
-    
-    func openUrl(url: String) {
-        if let url = URL(string: url) {
-            NSWorkspace.shared.open(url)
-        }
-    }
-    
-    
-    func launchAction(path: String) {
-        let url = NSURL(fileURLWithPath: path, isDirectory: true) as URL
-        
-        let path = "/bin"
-        let configuration = NSWorkspace.OpenConfiguration()
-        configuration.arguments = [path]
-        NSWorkspace.shared.openApplication(at: url,
-                                           configuration: configuration,
-                                           completionHandler: nil)
-    }
-
-    @State var isSheetOpened = false
-    @State var selectedApp: InstalledApp? = nil
-    
-    @State var selectedType = LaunchActionType.App
-    
     @State private var nameInput: String = ""
+    @State private var actions: [LaunchAction] = []
     
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
                 Text("Build your launcher")
                     .font(.headline)
-                
-                TextField("", text: $nameInput, prompt: Text("Name"))
-                    .textFieldStyle(.roundedBorder)
+                Text("Build your custom launching script by adding Apps or URLs to the list. These will all be opened when the launcher is run.")
+                    .font(.subheadline)
                 
                 Spacer(minLength: 16)
                 
-                VStack(alignment: .leading) {
-                    Picker("Type", selection: $selectedType) {
-                        Text("App").tag(LaunchActionType.App)
-                        Text("Url").tag(LaunchActionType.Url)
+                VStack(alignment: .leading, spacing: 0) {
+                    ForEach(actions, id: \.self) { action in
+                        CreateLaunchItemView(onDelete: { actions.remove(at: actions.firstIndex(of: action)!) })
+                            .padding(.vertical, 12)
+                            .padding(.horizontal, 8)
+                        Divider()
                     }
-                    Spacer(minLength: 16)
-                    if selectedType == LaunchActionType.Url {
-                        TextField(
-                            "Url",
-                            text: $urlInput,
-                            prompt: Text("https://example.com")
-                        )
-                        .disableAutocorrection(true)
-                        .textFieldStyle(.roundedBorder)
-                        .frame(maxWidth: 300)
-                        
-                        Button(action: { openUrl(url: urlInput) }, label: { Text("Launch") }).buttonStyle(.borderless).tint(.gray)
-                    } else {
-                        Button(action: {isSheetOpened.toggle()}) {
-                            if let icon = selectedApp?.icon {
-                                Image(nsImage: icon)
-                                    .resizable()
-                                    .frame(width: 24, height: 24)
-                            } else {
-                                Image(systemName: "app")
-                                    .resizable()
-                                    .frame(width: 24, height: 24)
-                                    .foregroundColor(.gray)
-                            }
-                            
-                            if let name = selectedApp?.name {
-                                Text(name)
-                            } else {
-                                Text("Select app")
-                                    .foregroundColor(.gray)
-                            }
-                        }
-                        .contentShape(Rectangle())
-                        .buttonStyle(.plain)
-                        .sheet(isPresented: $isSheetOpened) {
-                            SelectAppSheet(apps: self.allApps, selectedApp: self.$selectedApp)
-                                .frame(width: 400, height: 600)
-                        }
+                    Button(action: {
+                        actions.append(LaunchAction(id: UUID.init(), type: LaunchActionType.Url, url: URL(filePath: "https://example.com")!))
+                    }) {
+                        Label("Add item", systemImage: "plus.circle.fill")
                     }
+                    .buttonStyle(NavigationLinkButtonStyle(showChevron: false))
+                    .cornerRadius(8)
+                    
                 }
-                .padding()
                 .frame(maxWidth: .infinity)
                 .sectionStyle()
+                .animation(.easeInOut, value: actions)
+                
+                Spacer(minLength: 32)
+                Text("Name")
+                    .font(.subheadline)
+                TextField("", text: $nameInput, prompt: Text("Required"))
+                    .textFieldStyle(.roundedBorder)
+                
+                Spacer(minLength: 8)
+                
+                Button(action: {}, label: { Text("Save") }).buttonStyle(.borderedProminent)
+                    .disabled(nameInput.count <= 0)
             }.padding()
         }
     }

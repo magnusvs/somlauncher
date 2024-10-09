@@ -11,14 +11,7 @@ struct AppMenu: View {
     @Environment(\.openWindow) var openWindow
 
     func launchAction() {
-        let url = NSURL(fileURLWithPath: "/System/Applications/Utilities/Terminal.app", isDirectory: true) as URL
-        
-        let path = "/bin"
-        let configuration = NSWorkspace.OpenConfiguration()
-        configuration.arguments = [path]
-        NSWorkspace.shared.openApplication(at: url,
-                                           configuration: configuration,
-                                           completionHandler: nil)
+        Launcher.launchApp(path: "/System/Applications/Utilities/Terminal.app")
     }
 
     func launchSettings() {

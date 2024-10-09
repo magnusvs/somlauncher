@@ -19,6 +19,9 @@
 		AC8914A22CB3083400C476B4 /* SelectAppSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8914A12CB3082F00C476B4 /* SelectAppSheet.swift */; };
 		AC8914A52CB3085C00C476B4 /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8914A42CB3085900C476B4 /* ButtonStyles.swift */; };
 		AC8914A72CB31F9400C476B4 /* SectionStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8914A62CB31F9100C476B4 /* SectionStyles.swift */; };
+		AC8914A92CB46BCE00C476B4 /* CreateLaunchItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8914A82CB46BC200C476B4 /* CreateLaunchItemView.swift */; };
+		AC8914AD2CB46CC100C476B4 /* Launcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8914AC2CB46CBE00C476B4 /* Launcher.swift */; };
+		AC8914AF2CB470A900C476B4 /* LabelStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8914AE2CB470A700C476B4 /* LabelStyles.swift */; };
 		AC9342532CB075EF005AA1C2 /* AppMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9342522CB075EB005AA1C2 /* AppMenu.swift */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +59,9 @@
 		AC8914A12CB3082F00C476B4 /* SelectAppSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAppSheet.swift; sourceTree = "<group>"; };
 		AC8914A42CB3085900C476B4 /* ButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
 		AC8914A62CB31F9100C476B4 /* SectionStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionStyles.swift; sourceTree = "<group>"; };
+		AC8914A82CB46BC200C476B4 /* CreateLaunchItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateLaunchItemView.swift; sourceTree = "<group>"; };
+		AC8914AC2CB46CBE00C476B4 /* Launcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Launcher.swift; sourceTree = "<group>"; };
+		AC8914AE2CB470A700C476B4 /* LabelStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelStyles.swift; sourceTree = "<group>"; };
 		AC9342522CB075EB005AA1C2 /* AppMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMenu.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -107,6 +113,8 @@
 		AC5FC8B52CAF20D4003AC6FC /* xLauncher */ = {
 			isa = PBXGroup;
 			children = (
+				AC8914AC2CB46CBE00C476B4 /* Launcher.swift */,
+				AC8914A82CB46BC200C476B4 /* CreateLaunchItemView.swift */,
 				AC8914A32CB3085200C476B4 /* styles */,
 				AC8914A12CB3082F00C476B4 /* SelectAppSheet.swift */,
 				AC89149F2CB3076000C476B4 /* FileManager.swift */,
@@ -149,6 +157,7 @@
 		AC8914A32CB3085200C476B4 /* styles */ = {
 			isa = PBXGroup;
 			children = (
+				AC8914AE2CB470A700C476B4 /* LabelStyles.swift */,
 				AC8914A62CB31F9100C476B4 /* SectionStyles.swift */,
 				AC8914A42CB3085900C476B4 /* ButtonStyles.swift */,
 			);
@@ -290,7 +299,10 @@
 				AC89149E2CB14D1300C476B4 /* AppIconProvider.swift in Sources */,
 				AC8914A22CB3083400C476B4 /* SelectAppSheet.swift in Sources */,
 				AC8914A52CB3085C00C476B4 /* ButtonStyles.swift in Sources */,
+				AC8914AF2CB470A900C476B4 /* LabelStyles.swift in Sources */,
 				AC5FC8B92CAF20D4003AC6FC /* ContentView.swift in Sources */,
+				AC8914A92CB46BCE00C476B4 /* CreateLaunchItemView.swift in Sources */,
+				AC8914AD2CB46CC100C476B4 /* Launcher.swift in Sources */,
 				AC5FC8B72CAF20D4003AC6FC /* xLauncherApp.swift in Sources */,
 				AC8914A72CB31F9400C476B4 /* SectionStyles.swift in Sources */,
 			);
