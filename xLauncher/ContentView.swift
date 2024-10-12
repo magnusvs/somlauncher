@@ -68,8 +68,12 @@ struct LaunchBuilderView: View {
                     Button(action: {
                         actions.append(LaunchAction(id: UUID.init(), type: LaunchActionType.Url, url: URL(filePath: "https://example.com")!))
                     }) {
-                        Label("Add item", systemImage: "plus.circle.fill")
+                        Image(systemName: "plus.circle")
+                            .resizable()
+                            .frame(width: 24, height: 24)
+                        Text("Add item")
                     }
+                    .foregroundColor(.gray)
                     .buttonStyle(NavigationLinkButtonStyle(showChevron: false))
                     .cornerRadius(8)
                     
