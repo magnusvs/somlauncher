@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct AppMenu: View {
     @Environment(\.openWindow) var openWindow
+    @Query var launcherScripts: [LauncherScript]
 
     func launchAction() {
-        Launcher.launchApp(url: URL(filePath: "/System/Applications/Utilities/Terminal.app")!)
+        AppLauncher.launchApp(url: URL(filePath: "/System/Applications/Utilities/Terminal.app")!)
     }
 
     func launchSettings() {
@@ -27,7 +29,15 @@ struct AppMenu: View {
     }
 
     var body: some View {
-        Button(action: launchAction, label: { Text("Terminal") })
+        if (launcherScripts.isEmpty) {
+            Button(action: launchSettings, label: { Text("Create your first Launcher") })
+        }
+
+        ForEach(launcherScripts) { launcherScript in
+            Button(action: {
+                AppLauncher.launchScript(script: launcherScript)
+            }, label: { Text(launcherScript.name) })
+        }
         
         Divider()
 

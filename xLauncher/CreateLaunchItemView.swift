@@ -7,6 +7,10 @@
 import SwiftUI
 import Foundation
 
+enum LaunchActionType : String {
+    case Url
+    case App
+}
 
 struct CreateLaunchItemView: View {
     @State private var selectedType: LaunchActionType? = nil
@@ -61,7 +65,7 @@ struct CreateLaunchItemView: View {
                         .resizable()
                         .padding(2)
                         .frame(width: 24, height: 24)
-                    Button(action: { Launcher.openUrl(url: urlInput) }){
+                    Button(action: { AppLauncher.openWebUrl(url: urlInput) }){
                         Text(urlInput)
                     }
                     .buttonStyle(.link)
