@@ -20,10 +20,12 @@
 		AC8914A52CB3085C00C476B4 /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8914A42CB3085900C476B4 /* ButtonStyles.swift */; };
 		AC8914A72CB31F9400C476B4 /* SectionStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8914A62CB31F9100C476B4 /* SectionStyles.swift */; };
 		AC8914A92CB46BCE00C476B4 /* CreateLaunchItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8914A82CB46BC200C476B4 /* CreateLaunchItemView.swift */; };
-		AC8914AD2CB46CC100C476B4 /* AppLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8914AC2CB46CBE00C476B4 /* AppLauncher.swift */; };
+		AC8914AD2CB46CC100C476B4 /* LauncherScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8914AC2CB46CBE00C476B4 /* LauncherScript.swift */; };
 		AC8914AF2CB470A900C476B4 /* LabelStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8914AE2CB470A700C476B4 /* LabelStyles.swift */; };
 		AC9342532CB075EF005AA1C2 /* AppMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9342522CB075EB005AA1C2 /* AppMenu.swift */; };
 		ACD825E22CBC4FDC00106A77 /* LaunchBuilderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD825E12CBC4FDB00106A77 /* LaunchBuilderView.swift */; };
+		ACD825E82CBC532700106A77 /* AppLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD825E72CBC532700106A77 /* AppLauncher.swift */; };
+		ACD825EA2CBC542000106A77 /* LaunchAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD825E92CBC542000106A77 /* LaunchAction.swift */; };
 		ACFFEBAA2CBB0CBB00965AA3 /* UrlInputSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFFEBA92CBB0CB600965AA3 /* UrlInputSheet.swift */; };
 /* End PBXBuildFile section */
 
@@ -62,10 +64,12 @@
 		AC8914A42CB3085900C476B4 /* ButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
 		AC8914A62CB31F9100C476B4 /* SectionStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionStyles.swift; sourceTree = "<group>"; };
 		AC8914A82CB46BC200C476B4 /* CreateLaunchItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateLaunchItemView.swift; sourceTree = "<group>"; };
-		AC8914AC2CB46CBE00C476B4 /* AppLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLauncher.swift; sourceTree = "<group>"; };
+		AC8914AC2CB46CBE00C476B4 /* LauncherScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherScript.swift; sourceTree = "<group>"; };
 		AC8914AE2CB470A700C476B4 /* LabelStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelStyles.swift; sourceTree = "<group>"; };
 		AC9342522CB075EB005AA1C2 /* AppMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMenu.swift; sourceTree = "<group>"; };
 		ACD825E12CBC4FDB00106A77 /* LaunchBuilderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchBuilderView.swift; sourceTree = "<group>"; };
+		ACD825E72CBC532700106A77 /* AppLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLauncher.swift; sourceTree = "<group>"; };
+		ACD825E92CBC542000106A77 /* LaunchAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAction.swift; sourceTree = "<group>"; };
 		ACFFEBA92CBB0CB600965AA3 /* UrlInputSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlInputSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -117,20 +121,16 @@
 		AC5FC8B52CAF20D4003AC6FC /* xLauncher */ = {
 			isa = PBXGroup;
 			children = (
-				ACD825E12CBC4FDB00106A77 /* LaunchBuilderView.swift */,
-				ACFFEBA92CBB0CB600965AA3 /* UrlInputSheet.swift */,
-				AC8914AC2CB46CBE00C476B4 /* AppLauncher.swift */,
-				AC8914A82CB46BC200C476B4 /* CreateLaunchItemView.swift */,
-				AC8914A32CB3085200C476B4 /* styles */,
-				AC8914A12CB3082F00C476B4 /* SelectAppSheet.swift */,
-				AC89149F2CB3076000C476B4 /* FileManager.swift */,
-				AC89149D2CB14D0C00C476B4 /* AppIconProvider.swift */,
+				ACD825EB2CBC545000106A77 /* data */,
 				AC9342522CB075EB005AA1C2 /* AppMenu.swift */,
-				AC5FC8B62CAF20D4003AC6FC /* xLauncherApp.swift */,
-				AC5FC8B82CAF20D4003AC6FC /* ContentView.swift */,
 				AC5FC8BA2CAF20D6003AC6FC /* Assets.xcassets */,
-				AC5FC8BF2CAF20D6003AC6FC /* xLauncher.entitlements */,
+				AC5FC8B82CAF20D4003AC6FC /* ContentView.swift */,
+				ACD825E52CBC52C400106A77 /* launchBuilder */,
 				AC5FC8BC2CAF20D6003AC6FC /* Preview Content */,
+				AC8914A32CB3085200C476B4 /* styles */,
+				ACD825E62CBC52EF00106A77 /* system */,
+				AC5FC8BF2CAF20D6003AC6FC /* xLauncher.entitlements */,
+				AC5FC8B62CAF20D4003AC6FC /* xLauncherApp.swift */,
 			);
 			path = xLauncher;
 			sourceTree = "<group>";
@@ -168,6 +168,36 @@
 				AC8914A42CB3085900C476B4 /* ButtonStyles.swift */,
 			);
 			path = styles;
+			sourceTree = "<group>";
+		};
+		ACD825E52CBC52C400106A77 /* launchBuilder */ = {
+			isa = PBXGroup;
+			children = (
+				ACD825E92CBC542000106A77 /* LaunchAction.swift */,
+				ACD825E12CBC4FDB00106A77 /* LaunchBuilderView.swift */,
+				ACFFEBA92CBB0CB600965AA3 /* UrlInputSheet.swift */,
+				AC8914A82CB46BC200C476B4 /* CreateLaunchItemView.swift */,
+				AC8914A12CB3082F00C476B4 /* SelectAppSheet.swift */,
+			);
+			path = launchBuilder;
+			sourceTree = "<group>";
+		};
+		ACD825E62CBC52EF00106A77 /* system */ = {
+			isa = PBXGroup;
+			children = (
+				ACD825E72CBC532700106A77 /* AppLauncher.swift */,
+				AC89149F2CB3076000C476B4 /* FileManager.swift */,
+				AC89149D2CB14D0C00C476B4 /* AppIconProvider.swift */,
+			);
+			path = system;
+			sourceTree = "<group>";
+		};
+		ACD825EB2CBC545000106A77 /* data */ = {
+			isa = PBXGroup;
+			children = (
+				AC8914AC2CB46CBE00C476B4 /* LauncherScript.swift */,
+			);
+			path = data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -301,6 +331,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC8914A02CB3076200C476B4 /* FileManager.swift in Sources */,
+				ACD825E82CBC532700106A77 /* AppLauncher.swift in Sources */,
 				AC9342532CB075EF005AA1C2 /* AppMenu.swift in Sources */,
 				AC89149E2CB14D1300C476B4 /* AppIconProvider.swift in Sources */,
 				AC8914A22CB3083400C476B4 /* SelectAppSheet.swift in Sources */,
@@ -308,7 +339,8 @@
 				AC8914AF2CB470A900C476B4 /* LabelStyles.swift in Sources */,
 				AC5FC8B92CAF20D4003AC6FC /* ContentView.swift in Sources */,
 				AC8914A92CB46BCE00C476B4 /* CreateLaunchItemView.swift in Sources */,
-				AC8914AD2CB46CC100C476B4 /* AppLauncher.swift in Sources */,
+				AC8914AD2CB46CC100C476B4 /* LauncherScript.swift in Sources */,
+				ACD825EA2CBC542000106A77 /* LaunchAction.swift in Sources */,
 				AC5FC8B72CAF20D4003AC6FC /* xLauncherApp.swift in Sources */,
 				ACD825E22CBC4FDC00106A77 /* LaunchBuilderView.swift in Sources */,
 				ACFFEBAA2CBB0CBB00965AA3 /* UrlInputSheet.swift in Sources */,
