@@ -7,14 +7,14 @@
 import SwiftUI
 
 struct NavigationLinkButtonStyle: ButtonStyle {
-    var showChevron: Bool = true
+    var showChevron: Bool = false
 
     func makeBody(configuration: Configuration) -> some View {
         HStack {
             configuration.label
-            Spacer()
 
             if showChevron {
+                Spacer()
                 Image(systemName: "chevron.right")
                     .foregroundColor(.gray)
             }

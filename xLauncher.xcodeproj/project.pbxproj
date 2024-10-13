@@ -23,6 +23,7 @@
 		AC8914AD2CB46CC100C476B4 /* Launcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8914AC2CB46CBE00C476B4 /* Launcher.swift */; };
 		AC8914AF2CB470A900C476B4 /* LabelStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8914AE2CB470A700C476B4 /* LabelStyles.swift */; };
 		AC9342532CB075EF005AA1C2 /* AppMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9342522CB075EB005AA1C2 /* AppMenu.swift */; };
+		ACFFEBAA2CBB0CBB00965AA3 /* UrlInputSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFFEBA92CBB0CB600965AA3 /* UrlInputSheet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		AC8914AC2CB46CBE00C476B4 /* Launcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Launcher.swift; sourceTree = "<group>"; };
 		AC8914AE2CB470A700C476B4 /* LabelStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelStyles.swift; sourceTree = "<group>"; };
 		AC9342522CB075EB005AA1C2 /* AppMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMenu.swift; sourceTree = "<group>"; };
+		ACFFEBA92CBB0CB600965AA3 /* UrlInputSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlInputSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 		AC5FC8B52CAF20D4003AC6FC /* xLauncher */ = {
 			isa = PBXGroup;
 			children = (
+				ACFFEBA92CBB0CB600965AA3 /* UrlInputSheet.swift */,
 				AC8914AC2CB46CBE00C476B4 /* Launcher.swift */,
 				AC8914A82CB46BC200C476B4 /* CreateLaunchItemView.swift */,
 				AC8914A32CB3085200C476B4 /* styles */,
@@ -304,6 +307,7 @@
 				AC8914A92CB46BCE00C476B4 /* CreateLaunchItemView.swift in Sources */,
 				AC8914AD2CB46CC100C476B4 /* Launcher.swift in Sources */,
 				AC5FC8B72CAF20D4003AC6FC /* xLauncherApp.swift in Sources */,
+				ACFFEBAA2CBB0CBB00965AA3 /* UrlInputSheet.swift in Sources */,
 				AC8914A72CB31F9400C476B4 /* SectionStyles.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

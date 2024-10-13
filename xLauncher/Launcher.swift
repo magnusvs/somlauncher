@@ -6,7 +6,22 @@
 //
 import SwiftUI
 
+struct LaunchAction : Hashable, Identifiable {
+    var id: UUID = UUID()
+    var url: URL?
+}
+
 class Launcher {
+    
+    static func openAction(action: LaunchAction) {
+        if let url = action.url {
+            if (url.isFileURL) {
+                launchApp(url: url)
+            } else {
+                openUrl(url: url.absoluteString)
+            }
+        }
+    }
     
     static func openUrl(url: String) {
         if let url = URL(string: url) {
@@ -14,9 +29,7 @@ class Launcher {
         }
     }
     
-    static func launchApp(path: String) {
-        let url = NSURL(fileURLWithPath: path, isDirectory: true) as URL
-        
+    static func launchApp(url: URL) {
         let path = "/bin"
         let configuration = NSWorkspace.OpenConfiguration()
         configuration.arguments = [path]

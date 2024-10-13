@@ -7,9 +7,11 @@
 import SwiftUI
 
 struct SelectAppSheet: View {
-    var apps : [InstalledApp]
-    @Binding var selectedApp: InstalledApp?
     @Environment(\.dismiss) private var dismiss
+
+    var apps : [InstalledApp]
+    var onAppSelected: (InstalledApp) -> Void
+    var onUrlSelected: () -> Void
 
     var body: some View {
         ScrollView {
@@ -21,10 +23,26 @@ struct SelectAppSheet: View {
                     .padding(.horizontal, 12)
                 
                 VStack(spacing: 0) {
+                    Button(action: {
+                        onUrlSelected()
+                        dismiss()
+                    }, label: {
+                        Image(systemName: "network")
+                            .resizable()
+                            .padding(2)
+                            .frame(width: 24, height: 24)
+                        Text("Web URL")
+                        Spacer()
+                    })
+                    .buttonStyle(NavigationLinkButtonStyle(showChevron: false))
+
+                    Divider()
+                        .padding(.horizontal, 12)
+
                     ForEach(apps.indices, id: \.self) { index in
                         let app = apps[index]
                         Button(action: {
-                            selectedApp = app
+                            onAppSelected(app)
                             dismiss()
                         }, label: {
                             if let icon = app.icon {
@@ -33,6 +51,7 @@ struct SelectAppSheet: View {
                                     .frame(width: 24, height: 24)
                             }
                             Text(app.name)
+                            Spacer()
                         })
                         .buttonStyle(NavigationLinkButtonStyle(showChevron: false))
                         if (index < apps.count - 1) {

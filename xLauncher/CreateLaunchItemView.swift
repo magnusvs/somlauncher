@@ -9,17 +9,27 @@ import Foundation
 
 
 struct CreateLaunchItemView: View {
-    @State private var selectedType = LaunchActionType.App
+    @State private var selectedType: LaunchActionType? = nil
     @State private var selectedApp: InstalledApp? = nil
-    @State private var urlInput: String = ""
+    @State private var urlInput: String = "" {
+        didSet {
+            launchURL = URL(string: urlInput)
+        }
+    }
     
     @State private var showDelete: Bool = false
+    @Binding private var launchURL: URL?
 
-    @State private var isSheetOpened = false
+    @State private var isAppsSheetOpened = false
+    @State private var isUrlSheetOpened = false
     private let allApps: [InstalledApp]
     private var onDelete: () -> Void
     
-    init(onDelete: @escaping () -> Void) {
+    init(
+        launchURL: Binding<URL?>,
+        onDelete: @escaping () -> Void
+    ) {
+        self._launchURL = launchURL
         self.onDelete = onDelete
         allApps = FileManager.default.getInstalledApps().sorted(by: { left, right in
             return left.name < right.name
@@ -27,73 +37,69 @@ struct CreateLaunchItemView: View {
     }
     
     var body: some View {
-        HStack(alignment: .center) {
-//            Picker("Type", selection: $selectedType) {
-//                Text("App").tag(LaunchActionType.App)
-//                Text("Url").tag(LaunchActionType.Url)
-//            }
-//            .pickerStyle(.radioGroup)
-//            Spacer(minLength: 16)
-            if selectedType == LaunchActionType.Url {
-                HStack {
-                    TextField(
-                        "Url",
-                        text: $urlInput,
-                        prompt: Text("https://example.com")
-                    )
-                    .disableAutocorrection(true)
-                    .textFieldStyle(.roundedBorder)
-                    .frame(maxWidth: 300, minHeight: 24)
-                    
-                    Button(
-                        action: { Launcher.openUrl(url: urlInput) },
-                        label: {
-                            Label("Test", systemImage: "arrow.up.right.square")
-                                .labelStyle(ReversedLabelStyle())
-                        }
-                    )
-                    .buttonStyle(.link).tint(.gray)
-                }
-            } else {
-                Button(action: {isSheetOpened.toggle()}) {
+            Button(action: {isAppsSheetOpened.toggle()}) {
+                switch selectedType {
+                case nil:
+                    Image(systemName: "app")
+                        .resizable()
+                        .frame(width: 24, height: 24)
+                        .foregroundColor(.gray)
+                    Text("Select app")
+                        .foregroundColor(.gray)
+                case .App:
                     if let icon = selectedApp?.icon {
                         Image(nsImage: icon)
                             .resizable()
                             .frame(width: 24, height: 24)
-                    } else {
-                        Image(systemName: "app")
-                            .resizable()
-                            .frame(width: 24, height: 24)
-                            .foregroundColor(.gray)
                     }
-                    
                     if let name = selectedApp?.name {
                         Text(name)
-                    } else {
-                        Text("Select app")
-                            .foregroundColor(.gray)
                     }
-                    Spacer()
+                    
+                case .Url:
+                    Image(systemName: "network")
+                        .resizable()
+                        .padding(2)
+                        .frame(width: 24, height: 24)
+                    Button(action: { Launcher.openUrl(url: urlInput) }){
+                        Text(urlInput)
+                    }
+                    .buttonStyle(.link)
                 }
-                .contentShape(Rectangle())
-                .buttonStyle(.plain)
-                .sheet(isPresented: $isSheetOpened) {
-                    SelectAppSheet(apps: self.allApps, selectedApp: self.$selectedApp)
-                        .frame(width: 400, height: 600)
+                
+                Spacer()
+                if (showDelete) {
+                    Button(action: self.onDelete) {
+                        Image(systemName: "minus.circle")
+                    }
+                    .buttonStyle(.plain)
                 }
             }
-            if (showDelete) {
-                Button(action: self.onDelete) {
-                    Image(systemName: "minus.circle")
-                }
-                .buttonStyle(.plain)
+            .contentShape(Rectangle())
+            .sheet(isPresented: $isAppsSheetOpened) {
+                SelectAppSheet(
+                    apps: self.allApps,
+                    onAppSelected: { app in
+                        selectedType = LaunchActionType.App
+                        selectedApp = app
+                        launchURL = URL(fileURLWithPath: app.path)
+                    },
+                    onUrlSelected: {
+                        isUrlSheetOpened.toggle()
+                    })
+                .frame(width: 400, height: 600)
             }
-        }.onHover(perform: { over in showDelete = over })
+            .sheet(isPresented: $isUrlSheetOpened, content: {
+                UrlInputSheet { url in
+                    selectedType = LaunchActionType.Url
+                    urlInput = url
+                }
+            })
+        .onHover(perform: { over in showDelete = over })
+        .buttonStyle(NavigationLinkButtonStyle())
     }
 }
 
 #Preview {
-    ScrollView {
-        CreateLaunchItemView(onDelete: {})
-    }
+    CreateLaunchItemView(launchURL: .constant(nil), onDelete: {})
 }

@@ -33,12 +33,6 @@ struct ContentView: View {
     }
 }
 
-struct LaunchAction : Hashable {
-    var id: UUID
-    var type: LaunchActionType
-    var url: URL
-}
-
 enum LaunchActionType : String {
     case Url
     case App
@@ -47,6 +41,7 @@ enum LaunchActionType : String {
 struct LaunchBuilderView: View {
     @State private var nameInput: String = ""
     @State private var actions: [LaunchAction] = []
+    @State private var showLaunchConfirmation = false
     
     var body: some View {
         ScrollView {
@@ -59,19 +54,20 @@ struct LaunchBuilderView: View {
                 Spacer(minLength: 16)
                 
                 VStack(alignment: .leading, spacing: 0) {
-                    ForEach(actions, id: \.self) { action in
-                        CreateLaunchItemView(onDelete: { actions.remove(at: actions.firstIndex(of: action)!) })
-                            .padding(.vertical, 12)
-                            .padding(.horizontal, 8)
+                    ForEach($actions) { $action in
+                        CreateLaunchItemView(
+                            launchURL: $action.url,
+                            onDelete: { actions.remove(at: actions.firstIndex(of: action)!) })
                         Divider()
                     }
                     Button(action: {
-                        actions.append(LaunchAction(id: UUID.init(), type: LaunchActionType.Url, url: URL(filePath: "https://example.com")!))
+                        actions.append(LaunchAction(url: nil)) // TODO update from CreateLaunchItemView somehow
                     }) {
                         Image(systemName: "plus.circle")
                             .resizable()
                             .frame(width: 24, height: 24)
                         Text("Add item")
+                        Spacer()
                     }
                     .foregroundColor(.gray)
                     .buttonStyle(NavigationLinkButtonStyle(showChevron: false))
@@ -81,6 +77,29 @@ struct LaunchBuilderView: View {
                 .frame(maxWidth: .infinity)
                 .sectionStyle()
                 .animation(.easeInOut, value: actions)
+                
+                Spacer()
+                Button(action: {
+                    showLaunchConfirmation.toggle()
+                }, label: {
+                    Label("Run", systemImage: "chevron.right")
+                        .labelStyle(ReversedLabelStyle())
+                })
+                .disabled(actions.isEmpty)
+                .padding(.horizontal, 12)
+                .buttonStyle(.plain)
+                .alert(
+                    "Launch all your actions?",
+                    isPresented: $showLaunchConfirmation
+                ) {
+                    Button("Cancel", role: .cancel) {}
+                    Button("Launch") {
+                        actions.forEach { action in
+                            Launcher.openAction(action: action)
+                        }
+                    }
+                }
+                
                 
                 Spacer(minLength: 32)
                 Text("Name")

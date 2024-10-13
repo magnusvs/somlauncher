@@ -11,7 +11,7 @@ struct AppMenu: View {
     @Environment(\.openWindow) var openWindow
 
     func launchAction() {
-        Launcher.launchApp(path: "/System/Applications/Utilities/Terminal.app")
+        Launcher.launchApp(url: URL(filePath: "/System/Applications/Utilities/Terminal.app")!)
     }
 
     func launchSettings() {
