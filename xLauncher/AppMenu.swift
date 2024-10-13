@@ -32,5 +32,8 @@ struct AppMenu: View {
         Divider()
 
         Button(action: launchSettings, label: { Text("Settings...") })
+        Button("Quit") {
+            NSApplication.shared.terminate(nil)
+        }.keyboardShortcut("q")
     }
 }
