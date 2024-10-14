@@ -12,88 +12,133 @@ struct LaunchBuilderView: View {
     @State private var actions: [LaunchAction] = []
     @State private var showLaunchConfirmation = false
     @Environment(\.modelContext) private var modelContext
+    @State private var showSuccess = false
     
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading) {
-                Text("Build your launcher")
-                    .font(.headline)
-                Text("Build your custom launching script by adding Apps or URLs to the list. These will all be opened when the launcher is run.")
-                    .font(.subheadline)
-                
-                Spacer(minLength: 16)
-                
-                VStack(alignment: .leading, spacing: 0) {
-                    ForEach($actions) { $action in
-                        CreateLaunchItemView(
-                            launchURL: $action.url,
-                            onDelete: { actions.remove(at: actions.firstIndex(of: action)!) })
-                        Divider()
+        ZStack {
+            ScrollView {
+                VStack(alignment: .leading) {
+                    Text("Build your launcher")
+                        .font(.headline)
+                    Text("Build your custom launching script by adding Apps or URLs to the list. These will all be opened when the launcher is run.")
+                        .font(.subheadline)
+                    
+                    Spacer(minLength: 16)
+                    
+                    VStack(alignment: .leading, spacing: 0) {
+                        ForEach($actions) { $action in
+                            CreateLaunchItemView(
+                                launchURL: $action.url,
+                                onDelete: { actions.remove(at: actions.firstIndex(of: action)!) })
+                            Divider()
+                        }
+                        Button(action: {
+                            actions.append(LaunchAction(url: nil))
+                        }) {
+                            Image(systemName: "plus.circle")
+                                .resizable()
+                                .padding(2)
+                                .frame(width: 24, height: 24)
+                            Text("Add item")
+                            Spacer()
+                        }
+                        .foregroundColor(.gray)
+                        .buttonStyle(NavigationLinkButtonStyle(showChevron: false))
+                        .cornerRadius(8)
+                        
                     }
+                    .frame(maxWidth: .infinity)
+                    .sectionStyle()
+                    .animation(.easeInOut, value: actions)
+                    
+                    Spacer()
                     Button(action: {
-                        actions.append(LaunchAction(url: nil)) // TODO update from CreateLaunchItemView somehow
-                    }) {
-                        Image(systemName: "plus.circle")
-                            .resizable()
-                            .padding(2)
-                            .frame(width: 24, height: 24)
-                        Text("Add item")
-                        Spacer()
-                    }
-                    .foregroundColor(.gray)
-                    .buttonStyle(NavigationLinkButtonStyle(showChevron: false))
-                    .cornerRadius(8)
-                    
-                }
-                .frame(maxWidth: .infinity)
-                .sectionStyle()
-                .animation(.easeInOut, value: actions)
-                
-                Spacer()
-                Button(action: {
-                    showLaunchConfirmation.toggle()
-                }, label: {
-                    Label("Run", systemImage: "chevron.right")
-                        .labelStyle(ReversedLabelStyle())
-                })
-                .disabled(actions.isEmpty)
-                .padding(.horizontal, 12)
-                .buttonStyle(.plain)
-                .alert(
-                    "Launch all your actions?",
-                    isPresented: $showLaunchConfirmation
-                ) {
-                    Button("Cancel", role: .cancel) {}
-                    Button("Launch") {
-                        actions.forEach { action in
-                            AppLauncher.openAction(action: action)
-                        }
-                    }
-                }
-                
-                
-                Spacer(minLength: 32)
-                Text("Name")
-                    .font(.subheadline)
-                TextField("", text: $nameInput, prompt: Text("Required"))
-                    .textFieldStyle(.roundedBorder)
-                
-                Spacer(minLength: 8)
-                
-                Button(action: {
-                    let items = actions.compactMap({ action in
-                        if let url = action.url {
-                            LauncherScript.Item(url: url)
-                        } else {
-                            nil
-                        }
+                        showLaunchConfirmation.toggle()
+                    }, label: {
+                        Label("Run", systemImage: "chevron.right")
+                            .labelStyle(ReversedLabelStyle())
                     })
+                    .disabled(actions.isEmpty)
+                    .padding(.horizontal, 12)
+                    .buttonStyle(.plain)
+                    .alert(
+                        "Launch all your actions?",
+                        isPresented: $showLaunchConfirmation
+                    ) {
+                        Button("Cancel", role: .cancel) {}
+                        Button("Launch") {
+                            actions.forEach { action in
+                                AppLauncher.openAction(action: action)
+                            }
+                        }
+                    }
                     
-                    let script = LauncherScript(name: nameInput, items: items)
-                    modelContext.insert(script)
-                }, label: { Text("Save") }).buttonStyle(.borderedProminent)
-                    .disabled(nameInput.count <= 0)
-            }.padding()
+                    
+                    Spacer(minLength: 32)
+                    Text("Name")
+                        .font(.subheadline)
+                    TextField("", text: $nameInput, prompt: Text("Required"))
+                        .textFieldStyle(.roundedBorder)
+                    
+                    Spacer(minLength: 8)
+                    
+                    Button(action: {
+                        let items = actions.compactMap({ action in
+                            if let url = action.url {
+                                LauncherScript.Item(url: url)
+                            } else {
+                                nil
+                            }
+                        })
+                        
+                        let script = LauncherScript(name: nameInput, items: items)
+                        modelContext.insert(script)
+                        withAnimation { showSuccess.toggle() }
+                    }, label: { Text("Save") }).buttonStyle(.borderedProminent)
+                        .disabled(nameInput.count <= 0)
+                }.padding()
+            }
+            if (showSuccess) {
+                SuccessView(launcherName: nameInput, onDismiss: { showSuccess.toggle() })
+            }
         }
     }
+}
+
+struct SuccessView: View {
+    var launcherName: String
+    var onDismiss: () -> Void
+    @Environment(\.dismissWindow) private var dismissWindow
+    
+    var body: some View {
+        VStack {
+            Spacer()
+            Image(systemName: "checkmark.circle")
+                .resizable()
+                .frame(width: 48, height: 48)
+                .foregroundStyle(.green)
+            Text("\"\(launcherName)\" saved")
+            
+            Spacer()
+            
+            HStack {
+                Button("Back to edit") {
+                    onDismiss()
+                }
+                Button("Close window") {
+                    dismissWindow()
+                }.buttonStyle(.borderedProminent)
+            }.padding(.bottom, 16)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(.windowBackground)
+    }
+}
+
+#Preview {
+    SuccessView(launcherName: "Test", onDismiss: {})
+}
+
+#Preview {
+    LaunchBuilderView()
 }
