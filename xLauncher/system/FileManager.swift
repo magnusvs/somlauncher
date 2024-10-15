@@ -14,7 +14,7 @@ struct InstalledApp : Identifiable {
     }
     var name: String
     var icon: NSImage?
-    var path: String
+    var url: URL
 }
 
 extension FileManager {
@@ -25,16 +25,16 @@ extension FileManager {
         if let enumerator = self.enumerator(at: path, includingPropertiesForKeys: nil, options: .skipsSubdirectoryDescendants) {
             while let element = enumerator.nextObject() as? URL {
                 if element.pathExtension == "app" {
-                    appNames.append(getAppByPath(path: element)!)
+                    appNames.append(getAppByUrl(url: element)!)
                 }
             }
         }
         return appNames
     }
     
-    func getAppByPath(path: URL) -> InstalledApp? {
-        if let bundle = Bundle(url: path) {
-            return InstalledApp(name: path.deletingPathExtension().lastPathComponent, icon: bundle.appIcon, path: bundle.bundlePath)
+    func getAppByUrl(url: URL) -> InstalledApp? {
+        if let bundle = Bundle(url: url) {
+            return InstalledApp(name: url.deletingPathExtension().lastPathComponent, icon: bundle.appIcon, url: bundle.bundleURL)
         }
         return nil
     }

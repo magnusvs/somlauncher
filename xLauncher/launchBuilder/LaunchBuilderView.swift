@@ -14,11 +14,35 @@ struct LaunchBuilderView: View {
     @Environment(\.modelContext) private var modelContext
     @State private var showSuccess = false
     
+    @Query private var launcherScripts: [LauncherScript]
+    @State private var selectedLauncher: LauncherScript? = nil
+    
     var body: some View {
         ZStack {
             ScrollView {
+                Picker("Launcher",
+                       selection: $selectedLauncher) {
+                    ForEach(launcherScripts) { launcher in
+                        Text(launcher.name)
+                            .tag(launcher)
+                    }
+                    let tag : LauncherScript? = nil
+                    Text("Create new launcher")
+                        .tag(tag)
+                }
+                       .pickerStyle(.automatic)
+                       .padding()
+                       .onChange(of: selectedLauncher) {
+                           if let script = selectedLauncher {
+                               actions = script.items.map({scriptItem in
+                                   LaunchAction(id: scriptItem.id, url: scriptItem.url)
+                               })
+                               nameInput = script.name
+                           }
+                       }
+                
                 VStack(alignment: .leading) {
-                    Text("Build your launcher")
+                    Text("\(selectedLauncher == nil ? "Build" : "Edit") your launcher")
                         .font(.headline)
                     Text("Build your custom launching script by adding Apps or URLs to the list. These will all be opened when the launcher is run.")
                         .font(.subheadline)

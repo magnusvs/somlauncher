@@ -38,6 +38,15 @@ struct CreateLaunchItemView: View {
         allApps = FileManager.default.getInstalledApps().sorted(by: { left, right in
             return left.name < right.name
         })
+        if let url = launchURL.wrappedValue {
+            if (url.isFileURL) {
+                _selectedType = State(initialValue: LaunchActionType.App)
+                _selectedApp = State(initialValue: allApps.first(where: { url == $0.url}))
+            } else {
+                _selectedType = State(initialValue: LaunchActionType.Url)
+                _urlInput = State(initialValue: url.absoluteString)
+            }
+        }
     }
     
     var body: some View {
@@ -86,7 +95,7 @@ struct CreateLaunchItemView: View {
                     onAppSelected: { app in
                         selectedType = LaunchActionType.App
                         selectedApp = app
-                        launchURL = URL(fileURLWithPath: app.path)
+                        launchURL = app.url
                     },
                     onUrlSelected: {
                         isUrlSheetOpened.toggle()
