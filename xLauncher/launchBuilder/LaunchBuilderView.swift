@@ -13,6 +13,7 @@ struct LaunchBuilderView: View {
     @State private var showLaunchConfirmation = false
     @Environment(\.modelContext) private var modelContext
     @State private var showSuccess = false
+    @State private var showDeleteConfirmation = false
     
     @Query private var launcherScripts: [LauncherScript]
     @State private var selectedLauncher: LauncherScript? = nil
@@ -85,11 +86,10 @@ struct LaunchBuilderView: View {
                     .disabled(actions.isEmpty)
                     .padding(.horizontal, 12)
                     .buttonStyle(.plain)
-                    .alert(
+                    .confirmationDialog(
                         "Launch all your actions?",
                         isPresented: $showLaunchConfirmation
                     ) {
-                        Button("Cancel", role: .cancel) {}
                         Button("Launch") {
                             actions.forEach { action in
                                 AppLauncher.openAction(action: action)
@@ -106,20 +106,46 @@ struct LaunchBuilderView: View {
                     
                     Spacer(minLength: 8)
                     
-                    Button(action: {
-                        let items = actions.compactMap({ action in
-                            if let url = action.url {
-                                LauncherScript.Item(url: url)
-                            } else {
-                                nil
-                            }
-                        })
+                    HStack {
+                        Button(action: {
+                            let items = actions.compactMap({ action in
+                                if let url = action.url {
+                                    LauncherScript.Item(url: url)
+                                } else {
+                                    nil
+                                }
+                            })
+                            
+                            let script = LauncherScript(name: nameInput, items: items)
+                            modelContext.insert(script)
+                            withAnimation { showSuccess.toggle() }
+                        }, label: { Text("Save") }).buttonStyle(.borderedProminent)
+                            .disabled(nameInput.count <= 0)
                         
-                        let script = LauncherScript(name: nameInput, items: items)
-                        modelContext.insert(script)
-                        withAnimation { showSuccess.toggle() }
-                    }, label: { Text("Save") }).buttonStyle(.borderedProminent)
-                        .disabled(nameInput.count <= 0)
+                        Spacer()
+                        
+                        if let script = selectedLauncher {
+                            Button(action: {
+                                showDeleteConfirmation.toggle()
+                            }, label: { Text("Delete") })
+                            .buttonStyle(.bordered)
+                            .confirmationDialog(
+                                Text("Delete launcher?"),
+                                isPresented: $showDeleteConfirmation,
+                                titleVisibility: .visible
+                            ) {
+                                Button("Delete", role: .destructive) {
+                                    withAnimation {
+                                        modelContext.delete(script)
+                                        selectedLauncher = nil
+                                        actions = []
+                                        nameInput = ""
+                                    }
+                                }
+                            }
+                        }
+                        
+                    }
                 }.padding()
             }
             if (showSuccess) {
