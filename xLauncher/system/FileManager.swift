@@ -15,6 +15,11 @@ struct InstalledApp : Identifiable {
     var name: String
     var icon: NSImage?
     var url: URL
+    
+    static let allInstalledApps: [InstalledApp] = {
+        return FileManager.default.getInstalledApps()
+            .sorted(by: { left, right in return left.name < right.name })
+    }()
 }
 
 extension FileManager {

@@ -26,7 +26,7 @@ struct CreateLaunchItemView: View {
 
     @State private var isAppsSheetOpened = false
     @State private var isUrlSheetOpened = false
-    private let allApps: [InstalledApp]
+    private let allApps: [InstalledApp] = InstalledApp.allInstalledApps
     private var onDelete: () -> Void
     
     init(
@@ -35,9 +35,6 @@ struct CreateLaunchItemView: View {
     ) {
         self._launchURL = launchURL
         self.onDelete = onDelete
-        allApps = FileManager.default.getInstalledApps().sorted(by: { left, right in
-            return left.name < right.name
-        })
         if let url = launchURL.wrappedValue {
             if (url.isFileURL) {
                 _selectedType = State(initialValue: LaunchActionType.App)
