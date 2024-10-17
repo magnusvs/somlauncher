@@ -7,6 +7,7 @@
 
 import SwiftUI
 import AppKit
+import LaunchAtLogin
 
 enum Screen : String, Hashable, CaseIterable {
     case Launcher
@@ -42,6 +43,11 @@ struct Settings: View {
                 .imageScale(.large)
                 .foregroundStyle(.tint)
             Text("xLauncher")
+            
+            Form {
+                LaunchAtLogin.Toggle()
+                    .toggleStyle(.switch)
+            }
         }
     }
 }

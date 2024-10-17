@@ -26,6 +26,7 @@
 		ACD825E22CBC4FDC00106A77 /* LaunchBuilderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD825E12CBC4FDB00106A77 /* LaunchBuilderView.swift */; };
 		ACD825E82CBC532700106A77 /* AppLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD825E72CBC532700106A77 /* AppLauncher.swift */; };
 		ACD825EA2CBC542000106A77 /* LaunchAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD825E92CBC542000106A77 /* LaunchAction.swift */; };
+		ACF8D20E2CC1A6AD0085E34C /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = ACF8D20D2CC1A6AD0085E34C /* LaunchAtLogin */; };
 		ACFFEBAA2CBB0CBB00965AA3 /* UrlInputSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFFEBA92CBB0CB600965AA3 /* UrlInputSheet.swift */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +79,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACF8D20E2CC1A6AD0085E34C /* LaunchAtLogin in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,6 +290,9 @@
 				Base,
 			);
 			mainGroup = AC5FC8AA2CAF20D4003AC6FC;
+			packageReferences = (
+				ACF8D20C2CC1A6AD0085E34C /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */,
+			);
 			productRefGroup = AC5FC8B42CAF20D4003AC6FC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -669,6 +674,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		ACF8D20C2CC1A6AD0085E34C /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin-Modern";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		ACF8D20D2CC1A6AD0085E34C /* LaunchAtLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ACF8D20C2CC1A6AD0085E34C /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */;
+			productName = LaunchAtLogin;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = AC5FC8AB2CAF20D4003AC6FC /* Project object */;
 }
