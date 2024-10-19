@@ -8,40 +8,28 @@ import SwiftUI
 import SwiftData
 
 struct LaunchBuilderView: View {
+    @Binding var selectedLauncher: LauncherScript?
+
     @State private var nameInput: String = ""
     @State private var actions: [LaunchAction] = []
-    @State private var showLaunchConfirmation = false
+
     @Environment(\.modelContext) private var modelContext
+    
+    @State private var showLaunchConfirmation = false
     @State private var showSuccess = false
     @State private var showDeleteConfirmation = false
     
-    @Query private var launcherScripts: [LauncherScript]
-    @State private var selectedLauncher: LauncherScript? = nil
+    init(selectedLauncher: Binding<LauncherScript?>) {
+        _selectedLauncher = selectedLauncher
+        _nameInput = State(initialValue: selectedLauncher.wrappedValue?.name ?? "")
+        _actions = State(initialValue: selectedLauncher.wrappedValue?.items.map({
+            LaunchAction(id: $0.id, url: $0.url)
+        }) ?? [])
+    }
     
     var body: some View {
-        ZStack {
+        return ZStack {
             ScrollView {
-                Picker("Launcher",
-                       selection: $selectedLauncher) {
-                    ForEach(launcherScripts) { launcher in
-                        Text(launcher.name)
-                            .tag(launcher)
-                    }
-                    let tag : LauncherScript? = nil
-                    Text("Create new launcher")
-                        .tag(tag)
-                }
-                       .pickerStyle(.automatic)
-                       .padding()
-                       .onChange(of: selectedLauncher) {
-                           if let script = selectedLauncher {
-                               actions = script.items.map({scriptItem in
-                                   LaunchAction(id: scriptItem.id, url: scriptItem.url)
-                               })
-                               nameInput = script.name
-                           }
-                       }
-                
                 VStack(alignment: .leading) {
                     Text("\(selectedLauncher == nil ? "Build" : "Edit") your launcher")
                         .font(.headline)
@@ -136,10 +124,8 @@ struct LaunchBuilderView: View {
                             ) {
                                 Button("Delete", role: .destructive) {
                                     withAnimation {
-                                        modelContext.delete(script)
                                         selectedLauncher = nil
-                                        actions = []
-                                        nameInput = ""
+                                        modelContext.delete(script)                                        
                                     }
                                 }
                             }
@@ -152,6 +138,12 @@ struct LaunchBuilderView: View {
                 SuccessView(launcherName: nameInput, onDismiss: { showSuccess.toggle() })
             }
         }
+        .onChange(of: selectedLauncher, {
+            nameInput = selectedLauncher?.name ?? ""
+            actions = selectedLauncher?.items.map({
+                LaunchAction(id: $0.id, url: $0.url)
+            }) ?? []
+        })
     }
 }
 
@@ -190,5 +182,5 @@ struct SuccessView: View {
 }
 
 #Preview {
-    LaunchBuilderView()
+    LaunchBuilderView(selectedLauncher: .constant(nil))
 }

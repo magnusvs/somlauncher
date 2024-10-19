@@ -8,35 +8,55 @@
 import SwiftUI
 import AppKit
 import LaunchAtLogin
+import SwiftData
 
-enum Screen : String, Hashable, CaseIterable {
-    case Launcher
+enum Screen : Hashable {
+    case Launcher(launcherScript: LauncherScript?)
     case Settings
 }
 
 struct ContentView: View {
-    @State private var selection: Screen = Screen.Launcher
+    @Query var launcherScripts: [LauncherScript]
+    @State private var selection: Screen = Screen.Launcher(launcherScript: nil)
+    @Environment(\.modelContext) private var modelContext
+    
+    @State private var expanded = true
     
     var body: some View {
         NavigationSplitView() {
-            List(Screen.allCases, id: \.self, selection: $selection) { screen in
-                NavigationLink(screen.rawValue, value: screen)
+            List(selection: $selection) {
+                DisclosureGroup(isExpanded: $expanded) {
+                    ForEach(launcherScripts) { launcherScript in
+                        NavigationLink(value: Screen.Launcher(launcherScript: launcherScript)) {
+                            Label(launcherScript.name, systemImage: "hammer")
+                        }
+                    }
+                    NavigationLink(value: Screen.Launcher(launcherScript: nil)) {
+                        Label("New", systemImage: "plus")
+                    }
+                } label: {
+                    Label("Launchers", systemImage: "list.bullet")
+                }
+                    NavigationLink(value: Screen.Settings) {
+                        Label("Settings", systemImage: "gear")
+                    }
+                    
             }
         } detail: {
             switch selection {
-            case .Launcher:
-                LaunchBuilderView()
+            case .Launcher(let launcherScript):
+                LaunchBuilderView(
+                    selectedLauncher: Binding(get: { launcherScript }, set: { selection = .Launcher(launcherScript: $0) } ))
             case .Settings:
                 Settings()
             }
+            
         }
         .frame(minWidth: 500, minHeight: 400)
     }
 }
 
 struct Settings: View {
-    @State private var urlInput: String = ""
-    
     var body: some View {
         VStack {
             Image(systemName: "globe")
