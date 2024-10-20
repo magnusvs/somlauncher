@@ -18,7 +18,6 @@ enum Screen : Hashable {
 struct ContentView: View {
     @Query var launcherScripts: [LauncherScript]
     @State private var selection: Screen = Screen.Launcher(launcherScript: nil)
-    @Environment(\.modelContext) private var modelContext
     
     @State private var expanded = true
     
