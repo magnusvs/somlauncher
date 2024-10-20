@@ -94,48 +94,44 @@ struct LaunchBuilderView: View {
                     
                     Spacer(minLength: 8)
                     
-                    HStack {
-                        Button(action: {
-                            let items = actions.compactMap({ action in
-                                if let url = action.url {
-                                    LauncherScript.Item(url: url)
-                                } else {
-                                    nil
-                                }
-                            })
-                            
-                            let script = LauncherScript(name: nameInput, items: items)
-                            modelContext.insert(script)
-                            withAnimation { showSuccess.toggle() }
-                        }, label: { Text("Save") }).buttonStyle(.borderedProminent)
-                            .disabled(nameInput.count <= 0)
-                        
-                        Spacer()
-                        
-                        if let script = selectedLauncher {
-                            Button(action: {
-                                showDeleteConfirmation.toggle()
-                            }, label: { Text("Delete") })
-                            .buttonStyle(.bordered)
-                            .confirmationDialog(
-                                Text("Delete launcher?"),
-                                isPresented: $showDeleteConfirmation,
-                                titleVisibility: .visible
-                            ) {
-                                Button("Delete", role: .destructive) {
-                                    withAnimation {
-                                        selectedLauncher = nil
-                                        modelContext.delete(script)                                        
-                                    }
-                                }
+                    Button(action: {
+                        let items = actions.compactMap({ action in
+                            if let url = action.url {
+                                LauncherScript.Item(url: url)
+                            } else {
+                                nil
                             }
-                        }
+                        })
                         
-                    }
+                        let script = LauncherScript(name: nameInput, items: items)
+                        modelContext.insert(script)
+                        withAnimation { showSuccess.toggle() }
+                    }, label: { Text("Save") }).buttonStyle(.borderedProminent)
+                        .disabled(nameInput.count <= 0)
                 }.padding()
             }
             if (showSuccess) {
                 SuccessView(launcherName: nameInput, onDismiss: { showSuccess.toggle() })
+            }
+        }
+        .toolbar {
+            Spacer()
+            if let script = selectedLauncher {
+                Button(action: {
+                    showDeleteConfirmation.toggle()
+                }, label: { Label("Delete", systemImage: "trash") })
+                .confirmationDialog(
+                    Text("Delete launcher?"),
+                    isPresented: $showDeleteConfirmation,
+                    titleVisibility: .visible
+                ) {
+                    Button("Delete", role: .destructive) {
+                        withAnimation {
+                            selectedLauncher = nil
+                            modelContext.delete(script)
+                        }
+                    }
+                }
             }
         }
         .onChange(of: selectedLauncher, {
