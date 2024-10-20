@@ -30,7 +30,7 @@ struct xLauncherApp: App {
 
         MenuBarExtra("xLauncher", systemImage: "dot.scope.laptopcomputer") {
             AppMenu()
-                .modelContainer(for: LauncherScript.self)
+                .modelContainer(container)
         }
     }
 }

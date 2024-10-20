@@ -105,7 +105,6 @@ struct LaunchBuilderView: View {
                         
                         let script = LauncherScript(name: nameInput, items: items)
                         modelContext.insert(script)
-                        try? modelContext.save()
                         withAnimation { showSuccess.toggle() }
                     }, label: { Text("Save") }).buttonStyle(.borderedProminent)
                         .disabled(nameInput.count <= 0)
@@ -130,7 +129,6 @@ struct LaunchBuilderView: View {
                         withAnimation {
                             selectedLauncher = nil
                             modelContext.delete(script)
-                            try? modelContext.save()
                         }
                     }
                 }
