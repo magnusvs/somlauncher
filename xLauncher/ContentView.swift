@@ -7,7 +7,6 @@
 
 import SwiftUI
 import AppKit
-import LaunchAtLogin
 import SwiftData
 
 enum Screen : Hashable {
@@ -46,28 +45,14 @@ struct ContentView: View {
             case .Launcher(let launcherScript):
                 LaunchBuilderView(
                     selectedLauncher: Binding(get: { launcherScript }, set: { selection = .Launcher(launcherScript: $0) } ))
+                .navigationTitle(Text("Launcher"))
             case .Settings:
                 Settings()
+                    .navigationTitle(Text("Settings"))
             }
             
         }
         .frame(minWidth: 500, minHeight: 400)
-    }
-}
-
-struct Settings: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("xLauncher")
-            
-            Form {
-                LaunchAtLogin.Toggle()
-                    .toggleStyle(.switch)
-            }
-        }
     }
 }
 

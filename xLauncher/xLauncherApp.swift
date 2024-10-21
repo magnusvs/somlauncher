@@ -13,6 +13,8 @@ import SwiftData
 struct xLauncherApp: App {
     let container: ModelContainer
     
+    @AppStorage("menu-bar-icon") var menuBarIcon: String = "dot.scope.laptopcomputer"
+    
     init() {
         do {
             container = try ModelContainer(for: LauncherScript.self)
@@ -25,10 +27,10 @@ struct xLauncherApp: App {
         Window("Settings", id: "settings") {
             ContentView()
                 .modelContainer(container)
+                .toolbarBackground(.clear)
         }
-        .windowStyle(.hiddenTitleBar)
 
-        MenuBarExtra("xLauncher", systemImage: "dot.scope.laptopcomputer") {
+        MenuBarExtra("xLauncher", systemImage: menuBarIcon) {
             AppMenu()
                 .modelContainer(container)
         }

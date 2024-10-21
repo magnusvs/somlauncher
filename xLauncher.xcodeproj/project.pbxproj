@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC1DBEBA2CC5342300571253 /* SymbolPicker in Frameworks */ = {isa = PBXBuildFile; productRef = AC1DBEB92CC5342300571253 /* SymbolPicker */; };
+		AC1DBEBC2CC5615700571253 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1DBEBB2CC5615500571253 /* Settings.swift */; };
 		AC5FC8B72CAF20D4003AC6FC /* xLauncherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5FC8B62CAF20D4003AC6FC /* xLauncherApp.swift */; };
 		AC5FC8B92CAF20D4003AC6FC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5FC8B82CAF20D4003AC6FC /* ContentView.swift */; };
 		AC5FC8BB2CAF20D6003AC6FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC5FC8BA2CAF20D6003AC6FC /* Assets.xcassets */; };
@@ -48,6 +50,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AC1DBEBB2CC5615500571253 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		AC5FC8B32CAF20D4003AC6FC /* xLauncher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = xLauncher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC5FC8B62CAF20D4003AC6FC /* xLauncherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xLauncherApp.swift; sourceTree = "<group>"; };
 		AC5FC8B82CAF20D4003AC6FC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -79,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC1DBEBA2CC5342300571253 /* SymbolPicker in Frameworks */,
 				ACF8D20E2CC1A6AD0085E34C /* LaunchAtLogin in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -103,10 +107,10 @@
 		AC5FC8AA2CAF20D4003AC6FC = {
 			isa = PBXGroup;
 			children = (
+				AC5FC8B42CAF20D4003AC6FC /* Products */,
 				AC5FC8B52CAF20D4003AC6FC /* xLauncher */,
 				AC5FC8C72CAF20D6003AC6FC /* xLauncherTests */,
 				AC5FC8D12CAF20D6003AC6FC /* xLauncherUITests */,
-				AC5FC8B42CAF20D4003AC6FC /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -123,12 +127,13 @@
 		AC5FC8B52CAF20D4003AC6FC /* xLauncher */ = {
 			isa = PBXGroup;
 			children = (
-				ACD825EB2CBC545000106A77 /* data */,
 				AC9342522CB075EB005AA1C2 /* AppMenu.swift */,
 				AC5FC8BA2CAF20D6003AC6FC /* Assets.xcassets */,
 				AC5FC8B82CAF20D4003AC6FC /* ContentView.swift */,
+				ACD825EB2CBC545000106A77 /* data */,
 				ACD825E52CBC52C400106A77 /* launchBuilder */,
 				AC5FC8BC2CAF20D6003AC6FC /* Preview Content */,
+				AC1DBEBB2CC5615500571253 /* Settings.swift */,
 				AC8914A32CB3085200C476B4 /* styles */,
 				ACD825E62CBC52EF00106A77 /* system */,
 				AC5FC8BF2CAF20D6003AC6FC /* xLauncher.entitlements */,
@@ -292,6 +297,7 @@
 			mainGroup = AC5FC8AA2CAF20D4003AC6FC;
 			packageReferences = (
 				ACF8D20C2CC1A6AD0085E34C /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */,
+				AC1DBEB82CC5342300571253 /* XCRemoteSwiftPackageReference "SymbolPicker" */,
 			);
 			productRefGroup = AC5FC8B42CAF20D4003AC6FC /* Products */;
 			projectDirPath = "";
@@ -345,6 +351,7 @@
 				AC5FC8B92CAF20D4003AC6FC /* ContentView.swift in Sources */,
 				AC8914A92CB46BCE00C476B4 /* CreateLaunchItemView.swift in Sources */,
 				AC8914AD2CB46CC100C476B4 /* LauncherScript.swift in Sources */,
+				AC1DBEBC2CC5615700571253 /* Settings.swift in Sources */,
 				ACD825EA2CBC542000106A77 /* LaunchAction.swift in Sources */,
 				AC5FC8B72CAF20D4003AC6FC /* xLauncherApp.swift in Sources */,
 				ACD825E22CBC4FDC00106A77 /* LaunchBuilderView.swift in Sources */,
@@ -676,6 +683,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		AC1DBEB82CC5342300571253 /* XCRemoteSwiftPackageReference "SymbolPicker" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/xnth97/SymbolPicker.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.3;
+			};
+		};
 		ACF8D20C2CC1A6AD0085E34C /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin-Modern";
@@ -687,6 +702,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		AC1DBEB92CC5342300571253 /* SymbolPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AC1DBEB82CC5342300571253 /* XCRemoteSwiftPackageReference "SymbolPicker" */;
+			productName = SymbolPicker;
+		};
 		ACF8D20D2CC1A6AD0085E34C /* LaunchAtLogin */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = ACF8D20C2CC1A6AD0085E34C /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */;

@@ -20,7 +20,7 @@ struct NavigationLinkButtonStyle: ButtonStyle {
             }
         }
         .contentShape(Rectangle())
-        .padding(.vertical, 12)
+        .padding(.vertical, 10)
         .padding(.horizontal, 8)
         .background(configuration.isPressed ? Color(NSColor.separatorColor) : Color.clear)
         .animation(.easeInOut(duration: 0.1), value: configuration.isPressed)
