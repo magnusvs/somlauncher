@@ -13,11 +13,12 @@ struct Settings: View {
     
     @State private var iconPickerPresented = false
     @AppStorage("menu-bar-icon") var menuBarIcon: String = "dot.scope.laptopcomputer"
+    @AppStorage("show-dock-icon") var showDockIcon: Bool = false
     
     var launchAtLoginToggle: some View {
         LaunchAtLogin.Toggle() {
             HStack {
-                Text("Launch at Login")
+                Text("Start xLauncher at Login")
                 Spacer()
             }
         }
@@ -41,6 +42,29 @@ struct Settings: View {
         .buttonStyle(NavigationLinkButtonStyle())
     }
     
+    var showInDockToggle: some View {
+        HStack {
+            Toggle(isOn: $showDockIcon, label: {
+                HStack {
+                    Text("Show icon in dock")
+                    Spacer()
+                }
+            })
+            .toggleStyle(.switch)
+            .controlSize(.mini)
+            .onChange(of: showDockIcon) { old, newShow in
+                if (newShow) {
+                    NSApp.setActivationPolicy(.regular)
+                } else {
+                    NSApp.setActivationPolicy(.accessory)
+                    NSApp.activate()
+                }
+            }
+        }
+        .padding(.vertical, 10)
+        .padding(.horizontal, 8)
+    }
+    
     var body: some View {
         VStack(alignment: .leading) {
             
@@ -50,6 +74,10 @@ struct Settings: View {
                 Divider()
                 
                 menuBarIconPicker
+                
+                Divider()
+                
+                showInDockToggle
             }
             .frame(maxWidth: .infinity)
             .sectionStyle()
