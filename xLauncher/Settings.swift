@@ -52,14 +52,6 @@ struct Settings: View {
             })
             .toggleStyle(.switch)
             .controlSize(.mini)
-            .onChange(of: showDockIcon) { old, newShow in
-                if (newShow) {
-                    NSApp.setActivationPolicy(.regular)
-                } else {
-                    NSApp.setActivationPolicy(.accessory)
-                    NSApp.activate()
-                }
-            }
         }
         .padding(.vertical, 10)
         .padding(.horizontal, 8)

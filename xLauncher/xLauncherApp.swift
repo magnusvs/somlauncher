@@ -14,6 +14,7 @@ struct xLauncherApp: App {
     let container: ModelContainer
     
     @AppStorage("menu-bar-icon") var menuBarIcon: String = "dot.scope.laptopcomputer"
+    @AppStorage("show-dock-icon") var showDockIcon: Bool = false
     
     init() {
         do {
@@ -33,6 +34,16 @@ struct xLauncherApp: App {
         MenuBarExtra("xLauncher", systemImage: menuBarIcon) {
             AppMenu()
                 .modelContainer(container)
+        }.onChange(of: showDockIcon, initial: showDockIcon) { old, newShow in
+            if (newShow) {
+                NSApp.setActivationPolicy(.regular)
+                NSApp.dockTile.contentView = NSHostingView(rootView: DockIcon())
+                NSApp.dockTile.display()
+            } else {
+                NSApp.setActivationPolicy(.accessory)
+                NSApp.activate()
+            }
+            
         }
     }
 }
