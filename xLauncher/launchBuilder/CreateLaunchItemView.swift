@@ -51,7 +51,7 @@ struct CreateLaunchItemView: View {
                 switch selectedType {
                 case nil:
                     Image(systemName: "app")
-                        .resizable()
+                        .font(.system(size: 26))
                         .frame(width: 24, height: 24)
                         .foregroundColor(.gray)
                     Text("Select app")
@@ -68,8 +68,7 @@ struct CreateLaunchItemView: View {
                     
                 case .Url:
                     Image(systemName: "network")
-                        .resizable()
-                        .padding(2)
+                        .font(.system(size: 20))
                         .frame(width: 24, height: 24)
                     Button(action: { AppLauncher.openWebUrl(url: urlInput) }){
                         Text(urlInput)
@@ -111,5 +110,8 @@ struct CreateLaunchItemView: View {
 }
 
 #Preview {
-    CreateLaunchItemView(launchURL: .constant(nil), onDelete: {})
+    VStack {
+        CreateLaunchItemView(launchURL: .init(get: { URL(string: "https://www.test.com") }, set: { _ in }), onDelete: {})
+        CreateLaunchItemView(launchURL: .constant(nil), onDelete: {})
+    }
 }

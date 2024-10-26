@@ -28,8 +28,7 @@ struct SelectAppSheet: View {
                         dismiss()
                     }, label: {
                         Image(systemName: "network")
-                            .resizable()
-                            .padding(2)
+                            .font(.system(size: 20))
                             .frame(width: 24, height: 24)
                         Text("Web URL")
                         Spacer()

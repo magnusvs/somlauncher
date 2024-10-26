@@ -49,7 +49,6 @@ struct LaunchBuilderView: View {
                             actions.append(LaunchAction(url: nil))
                         }) {
                             Image(systemName: "plus.circle")
-                                .resizable()
                                 .padding(2)
                                 .frame(width: 24, height: 24)
                             Text("Add item")
@@ -152,7 +151,7 @@ struct SuccessView: View {
         VStack {
             Spacer()
             Image(systemName: "checkmark.circle")
-                .resizable()
+                .font(.system(size: 48))
                 .frame(width: 48, height: 48)
                 .foregroundStyle(.green)
             Text("\"\(launcherName)\" saved")
