@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		AC1DBEBA2CC5342300571253 /* SymbolPicker in Frameworks */ = {isa = PBXBuildFile; productRef = AC1DBEB92CC5342300571253 /* SymbolPicker */; };
 		AC1DBEBC2CC5615700571253 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1DBEBB2CC5615500571253 /* Settings.swift */; };
+		AC55DFD52CCE4C6E004D6D87 /* ViewExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC55DFD42CCE4C69004D6D87 /* ViewExt.swift */; };
 		AC5FC8B72CAF20D4003AC6FC /* xLauncherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5FC8B62CAF20D4003AC6FC /* xLauncherApp.swift */; };
 		AC5FC8B92CAF20D4003AC6FC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5FC8B82CAF20D4003AC6FC /* ContentView.swift */; };
 		AC5FC8BB2CAF20D6003AC6FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC5FC8BA2CAF20D6003AC6FC /* Assets.xcassets */; };
@@ -52,6 +53,7 @@
 
 /* Begin PBXFileReference section */
 		AC1DBEBB2CC5615500571253 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		AC55DFD42CCE4C69004D6D87 /* ViewExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExt.swift; sourceTree = "<group>"; };
 		AC5FC8B32CAF20D4003AC6FC /* xLauncher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = xLauncher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC5FC8B62CAF20D4003AC6FC /* xLauncherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xLauncherApp.swift; sourceTree = "<group>"; };
 		AC5FC8B82CAF20D4003AC6FC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 		ACD825E62CBC52EF00106A77 /* system */ = {
 			isa = PBXGroup;
 			children = (
+				AC55DFD42CCE4C69004D6D87 /* ViewExt.swift */,
 				ACD825E72CBC532700106A77 /* AppLauncher.swift */,
 				AC89149F2CB3076000C476B4 /* FileManager.swift */,
 				AC89149D2CB14D0C00C476B4 /* AppIconProvider.swift */,
@@ -274,7 +277,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1540;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 1600;
 				TargetAttributes = {
 					AC5FC8B22CAF20D4003AC6FC = {
 						CreatedOnToolsVersion = 15.4;
@@ -352,6 +355,7 @@
 				AC8914A52CB3085C00C476B4 /* ButtonStyles.swift in Sources */,
 				AC8914AF2CB470A900C476B4 /* LabelStyles.swift in Sources */,
 				AC5FC8B92CAF20D4003AC6FC /* ContentView.swift in Sources */,
+				AC55DFD52CCE4C6E004D6D87 /* ViewExt.swift in Sources */,
 				AC8914A92CB46BCE00C476B4 /* CreateLaunchItemView.swift in Sources */,
 				AC6035762CCD057500A38C98 /* DockIcon.swift in Sources */,
 				AC8914AD2CB46CC100C476B4 /* LauncherScript.swift in Sources */,
@@ -431,6 +435,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -494,6 +499,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -510,6 +516,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
 			};
@@ -520,13 +527,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = xLauncher/xLauncher.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"xLauncher/Preview Content\"";
 				DEVELOPMENT_TEAM = W3448ZZA79;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = xLauncher;
@@ -541,6 +552,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = se.somapp.xLauncher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -551,13 +563,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = xLauncher/xLauncher.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"xLauncher/Preview Content\"";
 				DEVELOPMENT_TEAM = W3448ZZA79;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = xLauncher;
@@ -572,6 +588,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = se.somapp.xLauncher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -580,10 +597,10 @@
 		AC5FC8DC2CAF20D6003AC6FC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
 				MARKETING_VERSION = 1.0;
@@ -598,10 +615,10 @@
 		AC5FC8DD2CAF20D6003AC6FC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
 				MARKETING_VERSION = 1.0;
@@ -616,9 +633,9 @@
 		AC5FC8DF2CAF20D6003AC6FC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = se.somapp.xLauncherUITests;
@@ -632,9 +649,9 @@
 		AC5FC8E02CAF20D6003AC6FC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = se.somapp.xLauncherUITests;

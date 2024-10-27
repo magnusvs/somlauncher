@@ -7,23 +7,28 @@
 import SwiftUI
 
 struct DockIcon: View {
+    
     var body: some View {
-        VStack(alignment: .center) {
-            Image(systemName: "dot.scope.laptopcomputer")
-                .font(.system(size: 48))
-                .foregroundColor(.white)
+        GeometryReader { geometry in
+            let size = min(geometry.size.width, geometry.size.height)
+            VStack(alignment: .center) {
+                Image(systemName: "dot.scope.laptopcomputer")
+                    .font(.system(size: size / 2))
+                    .foregroundColor(.white)
+            }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(.blue.gradient)
+                .clipShape(RoundedRectangle(cornerRadius: size * 0.18, style: .continuous))
+                .padding(size * 0.10)
         }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(.blue)
-            .clipShape(RoundedRectangle(cornerRadius: 26, style: .continuous))
-            .padding(12)
     }
 }
 
 #Preview  {
     VStack {
         DockIcon()
+            .frame(width: 256, height: 256)
+        Image(nsImage: DockIcon().asImage(pixelWidth: 512, pixelHeight: 512))
     }
-    .frame(width: 120, height: 120)
     .padding()
 }

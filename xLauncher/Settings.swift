@@ -55,6 +55,20 @@ struct Settings: View {
         }
         .padding(.vertical, 10)
         .padding(.horizontal, 8)
+        .onChange(of: showDockIcon, initial: showDockIcon) { old, newShow in
+            if (newShow) {
+                let icon = DockIcon()
+                let iconImage = icon.asImage(pixelWidth: 512, pixelHeight: 512)
+                NSApp.setActivationPolicy(.regular)
+                print(NSWorkspace.shared.setIcon(iconImage, forFile: Bundle.main.bundlePath, options: []))
+
+                NSApp.dockTile.contentView = NSHostingView(rootView: icon)
+                NSApp.dockTile.display()
+            } else {
+                NSApp.setActivationPolicy(.accessory)
+                NSApp.activate()
+            }
+        }
     }
     
     var body: some View {
