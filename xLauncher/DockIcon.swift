@@ -14,10 +14,10 @@ struct DockIcon: View {
             VStack(alignment: .center) {
                 Image(systemName: "dot.scope.laptopcomputer")
                     .font(.system(size: size / 2))
-                    .foregroundColor(.white)
+                    .foregroundColor(.blue)
             }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(.blue.gradient)
+                .background(Color(red: 0.95, green: 0.95, blue: 0.95).gradient)
                 .clipShape(RoundedRectangle(cornerRadius: size * 0.18, style: .continuous))
                 .padding(size * 0.10)
         }
