@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC0073CB2CD1825200F91623 /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0073CA2CD1824F00F91623 /* ImageSaver.swift */; };
 		AC1DBEBA2CC5342300571253 /* SymbolPicker in Frameworks */ = {isa = PBXBuildFile; productRef = AC1DBEB92CC5342300571253 /* SymbolPicker */; };
 		AC1DBEBC2CC5615700571253 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1DBEBB2CC5615500571253 /* Settings.swift */; };
 		AC55DFD52CCE4C6E004D6D87 /* ViewExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC55DFD42CCE4C69004D6D87 /* ViewExt.swift */; };
@@ -52,6 +53,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AC0073CA2CD1824F00F91623 /* ImageSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSaver.swift; sourceTree = "<group>"; };
 		AC1DBEBB2CC5615500571253 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		AC55DFD42CCE4C69004D6D87 /* ViewExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExt.swift; sourceTree = "<group>"; };
 		AC5FC8B32CAF20D4003AC6FC /* xLauncher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = xLauncher.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -197,6 +199,7 @@
 		ACD825E62CBC52EF00106A77 /* system */ = {
 			isa = PBXGroup;
 			children = (
+				AC0073CA2CD1824F00F91623 /* ImageSaver.swift */,
 				AC55DFD42CCE4C69004D6D87 /* ViewExt.swift */,
 				ACD825E72CBC532700106A77 /* AppLauncher.swift */,
 				AC89149F2CB3076000C476B4 /* FileManager.swift */,
@@ -351,6 +354,7 @@
 				ACD825E82CBC532700106A77 /* AppLauncher.swift in Sources */,
 				AC9342532CB075EF005AA1C2 /* AppMenu.swift in Sources */,
 				AC89149E2CB14D1300C476B4 /* AppIconProvider.swift in Sources */,
+				AC0073CB2CD1825200F91623 /* ImageSaver.swift in Sources */,
 				AC8914A22CB3083400C476B4 /* SelectAppSheet.swift in Sources */,
 				AC8914A52CB3085C00C476B4 /* ButtonStyles.swift in Sources */,
 				AC8914AF2CB470A900C476B4 /* LabelStyles.swift in Sources */,
@@ -537,7 +541,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"xLauncher/Preview Content\"";
 				DEVELOPMENT_TEAM = W3448ZZA79;
-				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = xLauncher;
@@ -573,7 +577,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"xLauncher/Preview Content\"";
 				DEVELOPMENT_TEAM = W3448ZZA79;
-				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = xLauncher;
