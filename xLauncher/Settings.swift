@@ -12,7 +12,7 @@ import SymbolPicker
 struct Settings: View {
     
     @State private var iconPickerPresented = false
-    @AppStorage("menu-bar-icon") var menuBarIcon: String = "dot.scope.laptopcomputer"
+    @AppStorage("menu-bar-icon") var menuBarIcon: String = "dot.scope.display"
     @AppStorage("show-dock-icon") var showDockIcon: Bool = false
     
     var launchAtLoginToggle: some View {
@@ -57,18 +57,20 @@ struct Settings: View {
         .padding(.horizontal, 8)
         .onChange(of: showDockIcon, initial: showDockIcon) { old, newShow in
             if (newShow) {
-                let icon = DockIcon()
-                let iconImage = icon.asImage(pixelWidth: 512, pixelHeight: 512)
                 NSApp.setActivationPolicy(.regular)
-                print(NSWorkspace.shared.setIcon(iconImage, forFile: Bundle.main.bundlePath, options: []))
-
-                NSApp.dockTile.contentView = NSHostingView(rootView: icon)
-                NSApp.dockTile.display()
             } else {
                 NSApp.setActivationPolicy(.accessory)
                 NSApp.activate()
             }
         }
+    }
+    
+    func setDockIcon() {
+        let icon = DockIcon()
+        let iconImage = icon.asImage(pixelWidth: 512, pixelHeight: 512)
+        print(NSWorkspace.shared.setIcon(iconImage, forFile: Bundle.main.bundlePath, options: []))
+        NSApp.dockTile.contentView = NSHostingView(rootView: icon)
+        NSApp.dockTile.display()
     }
     
     var body: some View {

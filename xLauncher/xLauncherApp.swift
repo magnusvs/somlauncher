@@ -13,7 +13,7 @@ import SwiftData
 struct xLauncherApp: App {
     let container: ModelContainer
     
-    @AppStorage("menu-bar-icon") var menuBarIcon: String = "dot.scope.laptopcomputer"
+    @AppStorage("menu-bar-icon") var menuBarIcon: String = "dot.scope.display"
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     init() {
