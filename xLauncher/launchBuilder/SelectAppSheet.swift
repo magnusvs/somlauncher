@@ -12,6 +12,7 @@ struct SelectAppSheet: View {
     var apps : [InstalledApp]
     var onAppSelected: (InstalledApp) -> Void
     var onUrlSelected: () -> Void
+    var onFileSelected: () -> Void
 
     var body: some View {
         ScrollView {
@@ -37,8 +38,23 @@ struct SelectAppSheet: View {
 
                     Divider()
                         .padding(.horizontal, 12)
+                    
+                    Button(action: {
+                        onFileSelected()
+                        dismiss()
+                    }, label: {
+                        Image(systemName: "folder")
+                            .font(.system(size: 20))
+                            .frame(width: 24, height: 24)
+                        Text("Select from file")
+                        Spacer()
+                    })
+                    .buttonStyle(NavigationLinkButtonStyle(showChevron: false))
 
                     ForEach(apps.indices, id: \.self) { index in
+                        Divider()
+                            .padding(.horizontal, 12)
+                        
                         let app = apps[index]
                         Button(action: {
                             onAppSelected(app)
@@ -53,10 +69,6 @@ struct SelectAppSheet: View {
                             Spacer()
                         })
                         .buttonStyle(NavigationLinkButtonStyle(showChevron: false))
-                        if (index < apps.count - 1) {
-                            Divider()
-                                .padding(.horizontal, 12)
-                        }
                     }
                 }
                 .sectionStyle()
