@@ -125,6 +125,7 @@ struct CreateLaunchItemView: View {
                         break
                 }
             })
+            .fileDialogDefaultDirectory(URL(filePath: "~/Applications/"))
         .onHover(perform: { over in showDelete = over })
         .buttonStyle(NavigationLinkButtonStyle())
     }
