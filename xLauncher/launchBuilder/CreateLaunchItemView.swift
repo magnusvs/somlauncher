@@ -6,7 +6,6 @@
 //
 import SwiftUI
 import Foundation
-import SwiftySandboxFileAccess
 
 enum LaunchActionType : String {
     case Url
