@@ -67,7 +67,7 @@ struct LaunchBuilderView: View {
                     Button(action: {
                         showLaunchConfirmation.toggle()
                     }, label: {
-                        Label("Run", systemImage: "chevron.right")
+                        Label("Test launch", systemImage: "chevron.right")
                             .labelStyle(ReversedLabelStyle())
                     })
                     .disabled(actions.isEmpty)
