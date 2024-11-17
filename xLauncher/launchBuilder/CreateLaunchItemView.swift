@@ -12,6 +12,32 @@ enum LaunchActionType : String {
     case App
 }
 
+func requestAccessToApplicationsFolder() -> URL? {
+    let openPanel = NSOpenPanel()
+    openPanel.title = "Please grant access to the Applications folder"
+    openPanel.message = "xLauncher needs access to your Applications folder to list all apps"
+    openPanel.canChooseFiles = false
+    openPanel.canChooseDirectories = true
+    openPanel.allowsMultipleSelection = false
+    let applicationsUrl = URL(fileURLWithPath: ("~/Applications" as NSString).expandingTildeInPath)
+    openPanel.directoryURL = applicationsUrl
+    
+    let response = openPanel.runModal()
+    
+    if response == .OK {
+        if let url = openPanel.url {
+            if (url.absoluteString.lowercased().hasSuffix("/applications/") && FileBookmarks.saveBookmarkForUrl(at: url, key: FileBookmarks.keyBookmarkUserApplications)) {
+                return url
+            }
+        }
+    }
+    return nil
+}
+
+func hasApplicationsFolderAccess() -> Bool {
+    FileBookmarks.resolveBookmark(for: FileBookmarks.keyBookmarkUserApplications) != nil
+}
+
 struct CreateLaunchItemView: View {
     @State private var selectedType: LaunchActionType? = nil
     @State private var selectedApp: InstalledApp? = nil
@@ -26,9 +52,10 @@ struct CreateLaunchItemView: View {
 
     @State private var isAppsSheetOpened = false
     @State private var isUrlSheetOpened = false
-    @State private var isFileImporterOpened = false
-    private let allApps: [InstalledApp] = InstalledApp.allInstalledApps
+    @State private var allApps: [InstalledApp] = FileManager.default.getInstalledApps(sorted: true)
     private var onDelete: () -> Void
+    
+    @State private var hasApplicationFolderAccess: Bool = hasApplicationsFolderAccess()
     
     init(
         launchURL: Binding<URL?>,
@@ -44,6 +71,38 @@ struct CreateLaunchItemView: View {
                 _selectedType = State(initialValue: LaunchActionType.Url)
                 _urlInput = State(initialValue: url.absoluteString)
             }
+        }
+    }
+    
+    var selectAppSheet: some View {
+        SelectAppSheet(
+            apps: self.allApps,
+            onAppSelected: { app in
+                selectedType = LaunchActionType.App
+                selectedApp = app
+                launchURL = app.url
+            },
+            onUrlSelected: {
+                isUrlSheetOpened.toggle()
+            },
+            onAllowUserApps: {
+                if requestAccessToApplicationsFolder() != nil {
+                    withAnimation {
+                        allApps = FileManager.default.getInstalledApps(sorted: true)
+                        hasApplicationFolderAccess = true
+                    }
+                }
+            },
+            hasUserApplicationsAccess: hasApplicationFolderAccess
+        )
+        // TODO: don't hardcode sheet size? Will overflow window
+        .frame(width: 400, height: 600)
+    }
+    
+    var urlInputSheet: some View {
+        UrlInputSheet { url in
+            selectedType = LaunchActionType.Url
+            urlInput = url
         }
     }
     
@@ -86,48 +145,10 @@ struct CreateLaunchItemView: View {
                 }
             }
             .contentShape(Rectangle())
-            .sheet(isPresented: $isAppsSheetOpened) {
-                SelectAppSheet(
-                    apps: self.allApps,
-                    onAppSelected: { app in
-                        selectedType = LaunchActionType.App
-                        selectedApp = app
-                        launchURL = app.url
-                    },
-                    onUrlSelected: {
-                        isUrlSheetOpened.toggle()
-                    },
-                    onFileSelected: {
-                        isFileImporterOpened.toggle()
-                    }
-                )
-                .frame(width: 400, height: 600)
-            }
-            .sheet(isPresented: $isUrlSheetOpened, content: {
-                UrlInputSheet { url in
-                    selectedType = LaunchActionType.Url
-                    urlInput = url
-                }
-            })
-            .fileImporter(isPresented: $isFileImporterOpened, allowedContentTypes: [.application], onCompletion: { result in
-                switch result {
-                case .success(let url):
-                    print(url)
-                    if let app = FileManager.default.getAppByUrl(url: url) {
-                        print(app)
-                        selectedType = LaunchActionType.App
-                        selectedApp = app
-                        launchURL = app.url
-                    }
-                    url.stopAccessingSecurityScopedResource()
-                    case .failure:
-                        // We ignore error
-                        break
-                }
-            })
-            .fileDialogDefaultDirectory(URL(filePath: "~/Applications/"))
-        .onHover(perform: { over in showDelete = over })
-        .buttonStyle(NavigationLinkButtonStyle())
+            .onHover(perform: { over in showDelete = over })
+            .buttonStyle(NavigationLinkButtonStyle())
+            .sheet(isPresented: $isAppsSheetOpened) { selectAppSheet }
+            .sheet(isPresented: $isUrlSheetOpened) { urlInputSheet }
     }
 }
 

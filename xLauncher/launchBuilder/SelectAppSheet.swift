@@ -12,7 +12,56 @@ struct SelectAppSheet: View {
     var apps : [InstalledApp]
     var onAppSelected: (InstalledApp) -> Void
     var onUrlSelected: () -> Void
-    var onFileSelected: () -> Void
+    var onAllowUserApps: () -> Void
+    var hasUserApplicationsAccess: Bool
+    
+    // TODO: animate hiding
+    var userAppsWarning: some View {
+        VStack(alignment: .leading) {
+            Text("Some applications might not be listed until you allow access to the applications folder")
+                .font(.subheadline)
+            Button(action: { onAllowUserApps() }) {
+                Text("Allow access")
+                Image(systemName: "chevron.right").font(.body)
+            }
+            .padding(.top)
+            .buttonStyle(.plain)
+        }
+            .padding()
+            .frame(maxWidth: .infinity, alignment: .topLeading)
+            .foregroundStyle(.red)
+            .background(.red.quinary)
+            .cornerRadius(8)
+            .overlay(RoundedRectangle(cornerRadius: 8).stroke(.red.quaternary, lineWidth: 1))
+    }
+    
+    var webUrlButton: some View {
+        Button(action: {
+            onUrlSelected()
+            dismiss()
+        }, label: {
+            Image(systemName: "network")
+                .font(.system(size: 20))
+                .frame(width: 24, height: 24)
+            Text("Web URL")
+            Spacer()
+        })
+        .buttonStyle(NavigationLinkButtonStyle(showChevron: false))
+    }
+    
+    var selectFileButton: some View {
+        Button(action: {
+            onAllowUserApps()
+            dismiss()
+        }, label: {
+            Image(systemName: "folder")
+                .font(.system(size: 20))
+                .frame(width: 24, height: 24)
+            Text("Select from file")
+            Spacer()
+        })
+        .buttonStyle(NavigationLinkButtonStyle(showChevron: false))
+    }
 
     var body: some View {
         ScrollView {
@@ -23,33 +72,18 @@ struct SelectAppSheet: View {
                     .padding(.bottom, 8)
                     .padding(.horizontal, 12)
                 
+                
+                if (!hasUserApplicationsAccess) {
+                    userAppsWarning
+                        .padding(.bottom, 12)
+                }
+                
                 VStack(spacing: 0) {
-                    Button(action: {
-                        onUrlSelected()
-                        dismiss()
-                    }, label: {
-                        Image(systemName: "network")
-                            .font(.system(size: 20))
-                            .frame(width: 24, height: 24)
-                        Text("Web URL")
-                        Spacer()
-                    })
-                    .buttonStyle(NavigationLinkButtonStyle(showChevron: false))
-
-                    Divider()
-                        .padding(.horizontal, 12)
+                    webUrlButton
                     
-                    Button(action: {
-                        onFileSelected()
-                        dismiss()
-                    }, label: {
-                        Image(systemName: "folder")
-                            .font(.system(size: 20))
-                            .frame(width: 24, height: 24)
-                        Text("Select from file")
-                        Spacer()
-                    })
-                    .buttonStyle(NavigationLinkButtonStyle(showChevron: false))
+                    // TODO: maybe enable this for selecting individual .apps?
+//                    Divider().padding(.horizontal, 12)
+//                    selectFileButton
 
                     ForEach(apps.indices, id: \.self) { index in
                         Divider()
@@ -76,4 +110,14 @@ struct SelectAppSheet: View {
             .padding(16)
         }
     }
+}
+
+#Preview {
+    SelectAppSheet(
+        apps: [],
+        onAppSelected: { app in },
+        onUrlSelected: {},
+        onAllowUserApps: {},
+        hasUserApplicationsAccess: false
+    )
 }

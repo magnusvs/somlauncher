@@ -15,16 +15,12 @@ struct InstalledApp : Identifiable {
     var name: String
     var icon: NSImage?
     var url: URL
-    
-    static let allInstalledApps: [InstalledApp] = {
-        return FileManager.default.getInstalledApps()
-            .sorted(by: { left, right in return left.name < right.name })
-    }()
+    var secureAccess: Bool = false
 }
 
 extension FileManager {
     
-    private func getAppsInDir(path: URL) -> [InstalledApp] {
+    private func getAppsInDir(path: URL, secureAccess: Bool = false) -> [InstalledApp] {
         var appNames = [InstalledApp]()
 
         if let enumerator = self.enumerator(at: path, includingPropertiesForKeys: nil, options: .skipsSubdirectoryDescendants) {
@@ -37,14 +33,15 @@ extension FileManager {
         return appNames
     }
     
-    func getAppByUrl(url: URL) -> InstalledApp? {
+    func getAppByUrl(url: URL, secureAccess: Bool = false) -> InstalledApp? {
         if let bundle = Bundle(url: url) {
-            return InstalledApp(name: url.deletingPathExtension().lastPathComponent, icon: bundle.appIcon, url: bundle.bundleURL)
+            return InstalledApp(name: url.deletingPathExtension().lastPathComponent, icon: bundle.appIcon, url: bundle.bundleURL, secureAccess: secureAccess)
         }
         return nil
     }
 
-    func getInstalledApps() -> [InstalledApp] {
+    // TODO: Fix Books application not showing image for some reason
+    func getInstalledApps(sorted: Bool = false) -> [InstalledApp] {
         var appNames = [InstalledApp]()
         
         let systemApplicationsUrl = URL(string: "/System/Applications/")
@@ -56,6 +53,16 @@ extension FileManager {
             appNames.append(contentsOf: getAppsInDir(path: url))
         }
         
+        if let url = FileBookmarks.resolveBookmark(for: FileBookmarks.keyBookmarkUserApplications) {
+            if (url.startAccessingSecurityScopedResource()) {
+                appNames.append(contentsOf: getAppsInDir(path: url, secureAccess: true))
+                url.stopAccessingSecurityScopedResource()
+            }
+        }
+        
+        if (sorted) {
+            return appNames.sorted(by: { left, right in return left.name < right.name })
+        }
         return appNames
     }
 }
