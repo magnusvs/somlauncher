@@ -13,6 +13,7 @@ struct UrlInputSheet: View {
     var onUrlSubmit: (String) -> Void
 
     @State private var urlInput: String = ""
+    @State private var urlInputError: Bool = false
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -23,17 +24,38 @@ struct UrlInputSheet: View {
             TextField("", text: $urlInput, prompt: Text("Required"))
                 .textFieldStyle(.roundedBorder)
                 .frame(minWidth: 280)
+                .onChange(of: urlInput) {
+                    withAnimation {
+                        urlInputError = false
+                    }
+                }
+
+            if (urlInputError) {
+                Text("Invalid URL")
+                    .font(.caption)
+                    .foregroundStyle(.red)
+            }
             
             Spacer(minLength: 16)
             
             VStack() {
                 Button(action: {
-                    // TODO input validation
-                    onUrlSubmit(urlInput)
-                    dismiss()
-                }, label: { Text("Confirm") })
-                    .buttonStyle(.borderedProminent)
-                    .disabled(urlInput.count <= 0)
+                    let url = URL(string: urlInput)
+                    if (url != nil) {
+                        onUrlSubmit(urlInput)
+                        dismiss()
+                    } else {
+                        // This won't happen often, decision for now is to let it slide.
+                        // Instead of difficult validation that might end up blocking some user.
+                        withAnimation {
+                            urlInputError = true
+                        }
+                    }
+                }) {
+                    Text("Confirm")
+                }
+                .buttonStyle(.borderedProminent)
+                .disabled(urlInput.count <= 0)
             }
             .frame(maxWidth: .infinity, alignment: .trailing)
         }
