@@ -26,10 +26,13 @@ struct xLauncherApp: App {
 
     var body: some Scene {
         Window("Settings", id: "settings") {
-            ContentView()
-                .modelContainer(container)
-                .toolbarBackground(.clear)
+            OnboardingView()
+            
+//            ContentView()
+//                .modelContainer(container)
+//                .toolbarBackground(.clear)
         }
+        .windowStyle(.hiddenTitleBar)
 
         MenuBarExtra("xLauncher", systemImage: menuBarIcon) {
             AppMenu()

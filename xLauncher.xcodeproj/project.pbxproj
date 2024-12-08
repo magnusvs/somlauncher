@@ -20,6 +20,7 @@
 		AC5FC8D32CAF20D6003AC6FC /* xLauncherUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5FC8D22CAF20D6003AC6FC /* xLauncherUITests.swift */; };
 		AC5FC8D52CAF20D6003AC6FC /* xLauncherUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5FC8D42CAF20D6003AC6FC /* xLauncherUITestsLaunchTests.swift */; };
 		AC6035762CCD057500A38C98 /* DockIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6035752CCD057200A38C98 /* DockIcon.swift */; };
+		AC837C172CF21A49007C70C7 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC837C162CF21A45007C70C7 /* OnboardingView.swift */; };
 		AC89149E2CB14D1300C476B4 /* AppIconProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC89149D2CB14D0C00C476B4 /* AppIconProvider.swift */; };
 		AC8914A02CB3076200C476B4 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC89149F2CB3076000C476B4 /* FileManager.swift */; };
 		AC8914A22CB3083400C476B4 /* SelectAppSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8914A12CB3082F00C476B4 /* SelectAppSheet.swift */; };
@@ -70,6 +71,7 @@
 		AC5FC8D22CAF20D6003AC6FC /* xLauncherUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xLauncherUITests.swift; sourceTree = "<group>"; };
 		AC5FC8D42CAF20D6003AC6FC /* xLauncherUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xLauncherUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		AC6035752CCD057200A38C98 /* DockIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DockIcon.swift; sourceTree = "<group>"; };
+		AC837C162CF21A45007C70C7 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		AC89149D2CB14D0C00C476B4 /* AppIconProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconProvider.swift; sourceTree = "<group>"; };
 		AC89149F2CB3076000C476B4 /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		AC8914A12CB3082F00C476B4 /* SelectAppSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAppSheet.swift; sourceTree = "<group>"; };
@@ -136,19 +138,20 @@
 		AC5FC8B52CAF20D4003AC6FC /* xLauncher */ = {
 			isa = PBXGroup;
 			children = (
+				AC5FC8BF2CAF20D6003AC6FC /* xLauncher.entitlements */,
 				ACAC652E2CD66E4400A258D8 /* xLauncherRelease.entitlements */,
-				AC6035752CCD057200A38C98 /* DockIcon.swift */,
 				AC9342522CB075EB005AA1C2 /* AppMenu.swift */,
-				AC5FC8BA2CAF20D6003AC6FC /* Assets.xcassets */,
 				AC5FC8B82CAF20D4003AC6FC /* ContentView.swift */,
+				AC6035752CCD057200A38C98 /* DockIcon.swift */,
+				AC837C162CF21A45007C70C7 /* OnboardingView.swift */,
+				AC1DBEBB2CC5615500571253 /* Settings.swift */,
+				AC5FC8B62CAF20D4003AC6FC /* xLauncherApp.swift */,
+				AC5FC8BA2CAF20D6003AC6FC /* Assets.xcassets */,
 				ACD825EB2CBC545000106A77 /* data */,
 				ACD825E52CBC52C400106A77 /* launchBuilder */,
 				AC5FC8BC2CAF20D6003AC6FC /* Preview Content */,
-				AC1DBEBB2CC5615500571253 /* Settings.swift */,
 				AC8914A32CB3085200C476B4 /* styles */,
 				ACD825E62CBC52EF00106A77 /* system */,
-				AC5FC8BF2CAF20D6003AC6FC /* xLauncher.entitlements */,
-				AC5FC8B62CAF20D4003AC6FC /* xLauncherApp.swift */,
 			);
 			path = xLauncher;
 			sourceTree = "<group>";
@@ -369,6 +372,7 @@
 				AC8914A92CB46BCE00C476B4 /* CreateLaunchItemView.swift in Sources */,
 				AC6035762CCD057500A38C98 /* DockIcon.swift in Sources */,
 				AC8914AD2CB46CC100C476B4 /* LauncherScript.swift in Sources */,
+				AC837C172CF21A49007C70C7 /* OnboardingView.swift in Sources */,
 				AC1DBEBC2CC5615700571253 /* Settings.swift in Sources */,
 				ACD825EA2CBC542000106A77 /* LaunchAction.swift in Sources */,
 				AC5FC8B72CAF20D4003AC6FC /* xLauncherApp.swift in Sources */,
