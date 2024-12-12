@@ -13,8 +13,13 @@ import SwiftData
 struct xLauncherApp: App {
     let container: ModelContainer
     
-    @AppStorage("menu-bar-icon") var menuBarIcon: String = "dot.scope.display"
-    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @AppStorage("menu-bar-icon") private var menuBarIcon: String = "dot.scope.display"
+    @AppStorage("onboarding-complete") private var onboardingComplete: Bool = false
+    
+    @Environment(\.openWindow) private var openWindow
+    @Environment(\.dismissWindow) private var dismissWindow
+    
+    @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     
     init() {
         do {
@@ -25,12 +30,11 @@ struct xLauncherApp: App {
     }
 
     var body: some Scene {
-        Window("Settings", id: "settings") {
-            OnboardingView()
-            
-//            ContentView()
-//                .modelContainer(container)
-//                .toolbarBackground(.clear)
+        Window("Onboarding", id: "onboarding") {
+            OnboardingView(onOnboardingComplete: {
+                openWindow(id: "settings")
+                dismissWindow(id: "onboarding")
+            })
         }
         .windowStyle(.hiddenTitleBar)
 
@@ -38,6 +42,13 @@ struct xLauncherApp: App {
             AppMenu()
                 .modelContainer(container)
         }
+        
+        Window("Settings", id: "settings") {
+            ContentView()
+                .modelContainer(container)
+                .toolbarBackground(.clear)
+        }
+        .windowStyle(.hiddenTitleBar)
     }
 }
 

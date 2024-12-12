@@ -14,6 +14,8 @@ struct OnboardingView: View {
     @State var isSettingsVisible = false
     @State var isInfoVisible = false
     
+    var onOnboardingComplete: () -> Void
+    
     var body: some View {
         VStack() {
             Spacer()
@@ -36,9 +38,7 @@ struct OnboardingView: View {
                 .transition(.offset(x: 0, y: 48).combined(with: .opacity))
             }
             if (isInfoVisible) {
-                InfoView(onContinue: {
-                    // TODO close onboarding
-                })
+                InfoView(onContinue: onOnboardingComplete)
                 .transition(.offset(x: 0, y: 48).combined(with: .opacity))
             }
             Spacer()
@@ -263,5 +263,5 @@ struct WelcomeView: View {
 }
 
 #Preview {
-    OnboardingView()
+    OnboardingView(onOnboardingComplete: {})
 }
