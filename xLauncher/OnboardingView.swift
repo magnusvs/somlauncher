@@ -12,6 +12,7 @@ struct OnboardingView: View {
     
     @State var isWelcomeVisible = false
     @State var isSettingsVisible = false
+    @State var isInfoVisible = false
     
     var body: some View {
         VStack() {
@@ -23,11 +24,22 @@ struct OnboardingView: View {
                         isWelcomeVisible = false
                     }
                 })
-                    .transition(.offset(x: 0, y: 48).combined(with: .opacity))
+                .transition(.offset(x: 0, y: 48).combined(with: .opacity))
             }
             if (isSettingsVisible) {
-                StartSettingsView(onContinue: {})
-                    .transition(.offset(x: 0, y: 48).combined(with: .opacity))
+                StartSettingsView(onContinue: {
+                    withAnimation {
+                        isInfoVisible = true
+                        isSettingsVisible = false
+                    }
+                })
+                .transition(.offset(x: 0, y: 48).combined(with: .opacity))
+            }
+            if (isInfoVisible) {
+                InfoView(onContinue: {
+                    // TODO close onboarding
+                })
+                .transition(.offset(x: 0, y: 48).combined(with: .opacity))
             }
             Spacer()
         }
@@ -74,8 +86,8 @@ struct StartSettingsView: View {
     @AppStorage("show-dock-icon") var showDockIcon: Bool = false
     
     var onContinue: () -> Void
-
-    var launchAtLoginToggle: some View {
+    
+    private var launchAtLoginToggle: some View {
         VStack(alignment: .leading) {
             Text("Start xLauncher when macOS starts")
             LaunchAtLogin.Toggle() {
@@ -90,7 +102,7 @@ struct StartSettingsView: View {
         }.padding(.vertical, 8)
     }
     
-    var menuBarIconPicker: some View {
+    private var menuBarIconPicker: some View {
         VStack(alignment: .leading) {
             Text("Pick a menu bar icon")
             Button {
@@ -120,17 +132,113 @@ struct StartSettingsView: View {
             menuBarIconPicker
                 .padding(.top, 16)
             
-            HStack {
-                Button(action: onContinue) {
-                    Text("Continue")
-                }
-                .buttonStyle(.borderedProminent)
+            
+            GradientButton(action: onContinue, text: "Continue")
                 .padding(.top, 32)
-            }
             Text("Options can be changed later in settings")
                 .font(.caption)
                 .padding(.top, 4)
         }
+        .fixedSize(horizontal: true, vertical: false)
+    }
+}
+
+struct InfoView: View {
+    
+    @AppStorage("menu-bar-icon") var menuBarIcon: String = "dot.scope.display"
+    
+    private let selectedApp: InstalledApp? = FileManager.default.getAppByUrl(url: URL(fileURLWithPath: "/System/Applications/Mail.app"))
+    
+    var onContinue: () -> Void
+    
+    private var appView: some View {
+        Button(action: {}) {
+            if let icon = selectedApp?.icon {
+                Image(nsImage: icon)
+                    .resizable()
+                    .frame(width: 24, height: 24)
+            }
+            if let name = selectedApp?.name {
+                Text(name)
+            }
+            Spacer()
+        }
+        .contentShape(Rectangle())
+        .buttonStyle(NavigationLinkButtonStyle())
+    }
+    
+    private var appsListView: some View {
+        VStack(spacing: 0) {
+            appView
+                .disabled(true)
+            Divider()
+            Button(action: {}) {
+                Image(systemName: "plus.circle")
+                    .frame(width: 24, height: 24)
+                Text("Add item")
+                Spacer()
+            }
+            .disabled(true)
+            .foregroundColor(.gray)
+            .buttonStyle(NavigationLinkButtonStyle())
+        }
+        .frame(maxWidth: .infinity)
+        .sectionStyle()
+    }
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            
+            Text("You're all set!")
+                .font(.headline.italic())
+            Text("Here's how you create your first launcher")
+                .font(.caption)
+                .padding(.bottom, 16)
+            
+            Text("1. Add apps to your first launcher")
+            appsListView
+                .padding(.bottom, 16)
+            
+            Text("2. Name your launcher")
+            Text("For example _Work_")
+                .font(.caption)
+            
+            VStack {
+                Text("3. Run your launcher any time from the menu bar icon")
+                HStack(alignment: .center) {
+                    Image(systemName: menuBarIcon)
+                }
+                .padding(.vertical, 4)
+                .frame(maxWidth: .infinity)
+                .foregroundStyle(.white)
+                .background(.blue.opacity(0.8))
+                .clipShape(RoundedRectangle(cornerRadius: 4))
+                .padding(.top, 2)
+            }
+            .padding(.vertical, 16)
+            
+            GradientButton(action: onContinue, text: "Create first launcher")
+                .padding(.top, 8)
+        }
+        .fixedSize(horizontal: true, vertical: false)
+    }
+}
+
+
+
+struct GradientButton: View {
+    var action: () -> Void
+    var text: String
+    var body: some View {
+        Button(action: action) {
+            Text(text)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 6)
+                .background(.blue.gradient)
+                .clipShape(RoundedRectangle(cornerRadius: 6))
+                .foregroundStyle(.white)
+        }
+        .buttonStyle(.plain)
     }
 }
 
@@ -144,20 +252,15 @@ struct WelcomeView: View {
                 .frame(width: 128, height: 128)
             Text("Welcome")
                 .font(.title)
+            Text("Let's get you started")
+                .font(.subheadline)
             
-            Button(action: onStart) {
-                Text("Start")
-            }
-            .buttonStyle(.borderedProminent)
-            .padding()
+            GradientButton(action: onStart, text: "Continue")
+                .padding()
         }
+        .fixedSize(horizontal: true, vertical: false)
     }
 }
-
-#Preview {
-    StartSettingsView(onContinue: {})
-}
-
 
 #Preview {
     OnboardingView()
