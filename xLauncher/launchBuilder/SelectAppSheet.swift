@@ -33,6 +33,7 @@ struct SelectAppSheet: View {
             .background(.red.quinary)
             .cornerRadius(8)
             .overlay(RoundedRectangle(cornerRadius: 8).stroke(.red.quaternary, lineWidth: 1))
+            .transition(.offset(x: 0, y: -48).combined(with: .opacity))
     }
     
     var webUrlButton: some View {
