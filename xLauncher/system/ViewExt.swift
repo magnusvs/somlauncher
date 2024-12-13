@@ -22,4 +22,7 @@ public extension View {
 
         return NSImage(cgImage: cgImage, size: .init(width: width, height: height))
     }
+    
+    
+    func apply<V: View>(@ViewBuilder _ block: (Self) -> V) -> V { block(self) }
 }

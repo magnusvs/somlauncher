@@ -95,8 +95,11 @@ struct CreateLaunchItemView: View {
             },
             hasUserApplicationsAccess: hasApplicationFolderAccess
         )
-        // TODO: don't hardcode sheet size? Will overflow window
-        .frame(width: 400, height: 600)
+        .apply {
+            if #available(macOS 15.0, *) {
+                $0.presentationSizing(.form)
+            }
+        }
     }
     
     var urlInputSheet: some View {
