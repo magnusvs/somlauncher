@@ -14,8 +14,7 @@ struct SelectAppSheet: View {
     var onUrlSelected: () -> Void
     var onAllowUserApps: () -> Void
     var hasUserApplicationsAccess: Bool
-    
-    // TODO: animate hiding
+
     var userAppsWarning: some View {
         VStack(alignment: .leading) {
             Text("Some applications might not be listed until you allow access to the applications folder")
