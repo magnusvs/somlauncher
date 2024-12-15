@@ -10,7 +10,38 @@ import Foundation
 import SwiftData
 
 @main
-struct xLauncherApp: App {
+struct xLauncherMain {
+    
+    static func main() {
+        if (UserDefaults.standard.bool(forKey: "onboarding-complete")) {
+            xLauncherApp.main()
+        } else {
+            xLauncherAppWithOnboarding.main()
+        }
+    }
+}
+
+struct xLauncherCommonScene: Scene {
+    
+    var container: ModelContainer
+    var menuBarIcon: String
+    
+    var body: some Scene {
+        MenuBarExtra("xLauncher", systemImage: menuBarIcon) {
+            AppMenu()
+                .modelContainer(container)
+        }
+        
+        Window("Settings", id: "settings") {
+            ContentView()
+                .modelContainer(container)
+                .toolbarBackground(.clear)
+        }
+        .windowStyle(.hiddenTitleBar)
+    }
+}
+
+struct xLauncherAppWithOnboarding : App {
     let container: ModelContainer
     
     @AppStorage("menu-bar-icon") private var menuBarIcon: String = "dot.scope.display"
@@ -28,27 +59,46 @@ struct xLauncherApp: App {
             fatalError("Failed to initialize ModelContainer: \(error)")
         }
     }
-
+    
     var body: some Scene {
         Window("Onboarding", id: "onboarding") {
             OnboardingView(onOnboardingComplete: {
+                onboardingComplete = true
                 openWindow(id: "settings")
                 dismissWindow(id: "onboarding")
             })
         }
         .windowStyle(.hiddenTitleBar)
-
-        MenuBarExtra("xLauncher", systemImage: menuBarIcon) {
-            AppMenu()
-                .modelContainer(container)
-        }
         
-        Window("Settings", id: "settings") {
-            ContentView()
-                .modelContainer(container)
-                .toolbarBackground(.clear)
+        xLauncherCommonScene(
+            container: container, menuBarIcon: menuBarIcon
+        )
+    }
+}
+
+struct xLauncherApp : App {
+    let container: ModelContainer
+    
+    @AppStorage("menu-bar-icon") private var menuBarIcon: String = "dot.scope.display"
+    @AppStorage("onboarding-complete") private var onboardingComplete: Bool = false
+    
+    @Environment(\.openWindow) private var openWindow
+    @Environment(\.dismissWindow) private var dismissWindow
+    
+    @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
+    
+    init() {
+        do {
+            container = try ModelContainer(for: LauncherScript.self)
+        } catch {
+            fatalError("Failed to initialize ModelContainer: \(error)")
         }
-        .windowStyle(.hiddenTitleBar)
+    }
+    
+    var body: some Scene {
+        xLauncherCommonScene(
+            container: container, menuBarIcon: menuBarIcon
+        )
     }
 }
 
