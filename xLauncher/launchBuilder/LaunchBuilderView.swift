@@ -107,7 +107,11 @@ struct LaunchBuilderView: View {
                         modelContext.insert(script)
                         withAnimation { showSuccess.toggle() }
                     }, label: { Text("Save") }).buttonStyle(.borderedProminent)
-                        .disabled(nameInput.count <= 0)
+                        .disabled(actions
+                            .filter({ action in action.url != nil })
+                            .count == 0
+                                  || nameInput.count <= 0
+                        )
                         .controlSize(.large)
                 }.padding()
             }
