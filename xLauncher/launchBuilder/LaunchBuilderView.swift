@@ -90,6 +90,7 @@ struct LaunchBuilderView: View {
                         .font(.subheadline)
                     TextField("", text: $nameInput, prompt: Text("Required"))
                         .textFieldStyle(.roundedBorder)
+                        .controlSize(.large)
                     
                     Spacer(minLength: 8)
                     
@@ -107,6 +108,7 @@ struct LaunchBuilderView: View {
                         withAnimation { showSuccess.toggle() }
                     }, label: { Text("Save") }).buttonStyle(.borderedProminent)
                         .disabled(nameInput.count <= 0)
+                        .controlSize(.large)
                 }.padding()
             }
             if (showSuccess) {
