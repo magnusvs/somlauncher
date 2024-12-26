@@ -12,32 +12,6 @@ enum LaunchActionType : String {
     case App
 }
 
-func requestAccessToApplicationsFolder() -> URL? {
-    let openPanel = NSOpenPanel()
-    openPanel.title = "Please grant access to the Applications folder"
-    openPanel.message = "xLauncher needs access to your Applications folder to list all apps"
-    openPanel.canChooseFiles = false
-    openPanel.canChooseDirectories = true
-    openPanel.allowsMultipleSelection = false
-    let applicationsUrl = URL(fileURLWithPath: ("~/Applications" as NSString).expandingTildeInPath)
-    openPanel.directoryURL = applicationsUrl
-    
-    let response = openPanel.runModal()
-    
-    if response == .OK {
-        if let url = openPanel.url {
-            if (url.absoluteString.lowercased().hasSuffix("/applications/") && FileBookmarks.saveBookmarkForUrl(at: url, key: FileBookmarks.keyBookmarkUserApplications)) {
-                return url
-            }
-        }
-    }
-    return nil
-}
-
-func hasApplicationsFolderAccess() -> Bool {
-    FileBookmarks.resolveBookmark(for: FileBookmarks.keyBookmarkUserApplications) != nil
-}
-
 struct CreateLaunchItemView: View {
     @State private var selectedType: LaunchActionType? = nil
     @State private var selectedApp: InstalledApp? = nil
@@ -55,7 +29,7 @@ struct CreateLaunchItemView: View {
     @State private var allApps: [InstalledApp] = FileManager.default.getInstalledApps(sorted: true)
     private var onDelete: () -> Void
     
-    @State private var hasApplicationFolderAccess: Bool = hasApplicationsFolderAccess()
+    @State private var hasApplicationFolderAccess: Bool = ApplicationsFolderFileBookmark.hasAccess()
     
     init(
         launchURL: Binding<URL?>,
@@ -86,7 +60,7 @@ struct CreateLaunchItemView: View {
                 isUrlSheetOpened.toggle()
             },
             onAllowUserApps: {
-                if requestAccessToApplicationsFolder() != nil {
+                if ApplicationsFolderFileBookmark.requestAccess() != nil {
                     withAnimation {
                         allApps = FileManager.default.getInstalledApps(sorted: true)
                         hasApplicationFolderAccess = true

@@ -53,7 +53,7 @@ extension FileManager {
             appNames.append(contentsOf: getAppsInDir(path: url))
         }
         
-        if let url = FileBookmarks.resolveBookmark(for: FileBookmarks.keyBookmarkUserApplications) {
+        if let url = ApplicationsFolderFileBookmark.resolve() {
             if (url.startAccessingSecurityScopedResource()) {
                 appNames.append(contentsOf: getAppsInDir(path: url, secureAccess: true))
                 url.stopAccessingSecurityScopedResource()
