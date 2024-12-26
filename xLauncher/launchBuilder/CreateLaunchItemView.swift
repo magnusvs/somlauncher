@@ -110,48 +110,56 @@ struct CreateLaunchItemView: View {
     }
     
     var body: some View {
-            Button(action: {isAppsSheetOpened.toggle()}) {
-                switch selectedType {
-                case nil:
-                    Image(systemName: "app")
-                        .font(.system(size: 26))
-                        .frame(width: 24, height: 24)
-                        .foregroundColor(.gray)
-                    Text("Select app")
-                        .foregroundColor(.gray)
-                case .App:
-                    if let icon = selectedApp?.icon {
+        Button(action: {isAppsSheetOpened.toggle()}) {
+            switch selectedType {
+            case nil:
+                Image(systemName: "app")
+                    .font(.system(size: 26))
+                    .frame(width: 24, height: 24)
+                    .foregroundColor(.gray)
+                Text("Select app")
+                    .foregroundColor(.gray)
+            case .App:
+                if let app = selectedApp {
+                    if let icon = app.icon {
                         Image(nsImage: icon)
                             .resizable()
                             .frame(width: 24, height: 24)
                     }
-                    if let name = selectedApp?.name {
-                        Text(name)
-                    }
                     
-                case .Url:
-                    Image(systemName: "network")
+                    Text(app.name)
+                } else {
+                    Image(systemName: "exclamationmark.circle")
                         .font(.system(size: 20))
                         .frame(width: 24, height: 24)
-                    Button(action: { AppLauncher.openWebUrl(url: urlInput) }){
-                        Text(urlInput)
-                    }
-                    .buttonStyle(.link)
+                        .foregroundStyle(.gray)
+                    Text("Could not read application")
+                        .foregroundStyle(.gray)
                 }
                 
-                Spacer()
-                if (showDelete) {
-                    Button(action: self.onDelete) {
-                        Image(systemName: "minus.circle")
-                    }
-                    .buttonStyle(.plain)
+            case .Url:
+                Image(systemName: "network")
+                    .font(.system(size: 20))
+                    .frame(width: 24, height: 24)
+                Button(action: { AppLauncher.openWebUrl(url: urlInput) }){
+                    Text(urlInput)
                 }
+                .buttonStyle(.link)
             }
-            .contentShape(Rectangle())
-            .onHover(perform: { over in showDelete = over })
-            .buttonStyle(NavigationLinkButtonStyle())
-            .sheet(isPresented: $isAppsSheetOpened) { selectAppSheet }
-            .sheet(isPresented: $isUrlSheetOpened) { urlInputSheet }
+            
+            Spacer()
+            if (showDelete) {
+                Button(action: self.onDelete) {
+                    Image(systemName: "minus.circle")
+                }
+                .buttonStyle(.plain)
+            }
+        }
+        .contentShape(Rectangle())
+        .onHover(perform: { over in showDelete = over })
+        .buttonStyle(NavigationLinkButtonStyle())
+        .sheet(isPresented: $isAppsSheetOpened) { selectAppSheet }
+        .sheet(isPresented: $isUrlSheetOpened) { urlInputSheet }
     }
 }
 
