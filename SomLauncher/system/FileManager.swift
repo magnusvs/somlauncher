@@ -26,7 +26,9 @@ extension FileManager {
         if let enumerator = self.enumerator(at: path, includingPropertiesForKeys: nil, options: .skipsSubdirectoryDescendants) {
             while let element = enumerator.nextObject() as? URL {
                 if element.pathExtension == "app" {
-                    appNames.append(getAppByUrl(url: element)!)
+                    if let app = getAppByUrl(url: element) {
+                        appNames.append(app)
+                    }
                 }
             }
         }
