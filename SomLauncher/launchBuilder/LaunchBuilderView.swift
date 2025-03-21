@@ -103,8 +103,20 @@ struct LaunchBuilderView: View {
                             }
                         })
                         
-                        let script = LauncherScript(name: nameInput, items: items)
-                        modelContext.insert(script)
+                        if let script = selectedLauncher {
+                            script.name = nameInput
+                            script.items = items
+                            do {
+                                try script.modelContext?.save()
+                            } catch {
+                                print("Error saving script")
+                                modelContext.insert(script)
+                            }
+                        } else {
+                            let script = LauncherScript(name: nameInput, items: items)
+                            modelContext.insert(script)
+                        }
+                    
                         withAnimation { showSuccess.toggle() }
                     }, label: { Text("Save") }).buttonStyle(.borderedProminent)
                         .disabled(actions
