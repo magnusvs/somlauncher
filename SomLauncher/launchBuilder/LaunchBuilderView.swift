@@ -181,6 +181,7 @@ struct SuccessView: View {
                     onDismiss()
                 }
                 Button("Close window") {
+                    onDismiss()
                     dismissWindow()
                 }.buttonStyle(.borderedProminent)
             }.padding(.bottom, 16)
