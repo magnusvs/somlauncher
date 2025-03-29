@@ -93,7 +93,7 @@ struct Settings: View {
             Spacer()
             
             VStack {
-                Image(systemName: "globe")
+                Image(systemName: "dot.scope.display")
                     .imageScale(.large)
                     .foregroundStyle(.tint)
                 Text("SomLauncher")
