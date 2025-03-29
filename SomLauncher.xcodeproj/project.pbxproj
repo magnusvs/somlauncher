@@ -54,6 +54,7 @@
 
 /* Begin PBXFileReference section */
 		AC0073CA2CD1824F00F91623 /* ImageSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSaver.swift; sourceTree = "<group>"; };
+		AC0208FF2D983B4A00AB2AE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		AC1DBEBB2CC5615500571253 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		AC1F6B832CE92F29004E8D30 /* FileBookmarks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileBookmarks.swift; sourceTree = "<group>"; };
 		AC55DFD42CCE4C69004D6D87 /* ViewExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExt.swift; sourceTree = "<group>"; };
@@ -133,6 +134,7 @@
 		AC5FC8B52CAF20D4003AC6FC /* SomLauncher */ = {
 			isa = PBXGroup;
 			children = (
+				AC0208FF2D983B4A00AB2AE1 /* Info.plist */,
 				AC5FC8BF2CAF20D6003AC6FC /* SomLauncher.entitlements */,
 				ACAC652E2CD66E4400A258D8 /* SomLauncherRelease.entitlements */,
 				AC9342522CB075EB005AA1C2 /* AppMenu.swift */,
@@ -538,6 +540,7 @@
 				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SomLauncher/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = SomLauncher;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_LSUIElement = YES;
@@ -574,6 +577,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SomLauncher/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = SomLauncher;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_LSUIElement = YES;
