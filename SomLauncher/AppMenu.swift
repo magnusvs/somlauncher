@@ -12,10 +12,6 @@ struct AppMenu: View {
     @Environment(\.openWindow) var openWindow
     @Query var launcherScripts: [LauncherScript]
 
-    func launchAction() {
-        AppLauncher.launchApp(url: URL(filePath: "/System/Applications/Utilities/Terminal.app")!)
-    }
-
     func launchSettings() {
         NSApplication.shared.activate(ignoringOtherApps: true)
         openWindow(id: "settings")

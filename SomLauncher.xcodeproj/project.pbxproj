@@ -16,9 +16,7 @@
 		AC5FC8B92CAF20D4003AC6FC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5FC8B82CAF20D4003AC6FC /* ContentView.swift */; };
 		AC5FC8BB2CAF20D6003AC6FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC5FC8BA2CAF20D6003AC6FC /* Assets.xcassets */; };
 		AC5FC8BE2CAF20D6003AC6FC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC5FC8BD2CAF20D6003AC6FC /* Preview Assets.xcassets */; };
-		AC5FC8C92CAF20D6003AC6FC /* SomLauncherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5FC8C82CAF20D6003AC6FC /* SomLauncherTests.swift */; };
 		AC5FC8D32CAF20D6003AC6FC /* SomLauncherUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5FC8D22CAF20D6003AC6FC /* SomLauncherUITests.swift */; };
-		AC5FC8D52CAF20D6003AC6FC /* SomLauncherUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5FC8D42CAF20D6003AC6FC /* SomLauncherUITestsLaunchTests.swift */; };
 		AC6035762CCD057500A38C98 /* DockIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6035752CCD057200A38C98 /* DockIcon.swift */; };
 		AC837C172CF21A49007C70C7 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC837C162CF21A45007C70C7 /* OnboardingView.swift */; };
 		AC89149E2CB14D1300C476B4 /* AppIconProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC89149D2CB14D0C00C476B4 /* AppIconProvider.swift */; };
@@ -66,10 +64,8 @@
 		AC5FC8BD2CAF20D6003AC6FC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AC5FC8BF2CAF20D6003AC6FC /* SomLauncher.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SomLauncher.entitlements; sourceTree = "<group>"; };
 		AC5FC8C42CAF20D6003AC6FC /* SomLauncherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SomLauncherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		AC5FC8C82CAF20D6003AC6FC /* SomLauncherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomLauncherTests.swift; sourceTree = "<group>"; };
 		AC5FC8CE2CAF20D6003AC6FC /* SomLauncherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SomLauncherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC5FC8D22CAF20D6003AC6FC /* SomLauncherUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomLauncherUITests.swift; sourceTree = "<group>"; };
-		AC5FC8D42CAF20D6003AC6FC /* SomLauncherUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomLauncherUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		AC6035752CCD057200A38C98 /* DockIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DockIcon.swift; sourceTree = "<group>"; };
 		AC837C162CF21A45007C70C7 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		AC89149D2CB14D0C00C476B4 /* AppIconProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconProvider.swift; sourceTree = "<group>"; };
@@ -120,7 +116,6 @@
 			children = (
 				AC5FC8B42CAF20D4003AC6FC /* Products */,
 				AC5FC8B52CAF20D4003AC6FC /* SomLauncher */,
-				AC5FC8C72CAF20D6003AC6FC /* SomLauncherTests */,
 				AC5FC8D12CAF20D6003AC6FC /* SomLauncherUITests */,
 			);
 			sourceTree = "<group>";
@@ -164,19 +159,10 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		AC5FC8C72CAF20D6003AC6FC /* SomLauncherTests */ = {
-			isa = PBXGroup;
-			children = (
-				AC5FC8C82CAF20D6003AC6FC /* SomLauncherTests.swift */,
-			);
-			path = SomLauncherTests;
-			sourceTree = "<group>";
-		};
 		AC5FC8D12CAF20D6003AC6FC /* SomLauncherUITests */ = {
 			isa = PBXGroup;
 			children = (
 				AC5FC8D22CAF20D6003AC6FC /* SomLauncherUITests.swift */,
-				AC5FC8D42CAF20D6003AC6FC /* SomLauncherUITestsLaunchTests.swift */,
 			);
 			path = SomLauncherUITests;
 			sourceTree = "<group>";
@@ -386,7 +372,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC5FC8C92CAF20D6003AC6FC /* SomLauncherTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -395,7 +380,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC5FC8D32CAF20D6003AC6FC /* SomLauncherUITests.swift in Sources */,
-				AC5FC8D52CAF20D6003AC6FC /* SomLauncherUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
