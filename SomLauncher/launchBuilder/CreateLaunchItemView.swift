@@ -69,13 +69,13 @@ struct CreateLaunchItemView: View {
             },
             hasUserApplicationsAccess: hasApplicationFolderAccess
         )
-//        .apply {
-//            if #available(macOS 15.0, *) {
-//                $0.presentationSizing(.form)
-//            } else {
-//                $0
-//            }
-//        }
+        .apply {
+            if #available(macOS 15.0, *) {
+                $0.presentationSizing(.form)
+            } else {
+                $0
+            }
+        }
     }
     
     var urlInputSheet: some View {
