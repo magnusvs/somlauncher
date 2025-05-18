@@ -20,7 +20,8 @@ jobs:
             -project SomLauncher.xcodeproj \
             -scheme SomLauncher \
             -destination 'platform=macOS' \
-            -derivedDataPath ./DerivedData
+            -derivedDataPath ./DerivedData \
+            CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
 
       - name: Run UI tests
         run: |
@@ -30,4 +31,5 @@ jobs:
             -destination 'platform=macOS' \
             -derivedDataPath ./DerivedData \
             -only-testing:SomLauncherUITests \
-            -UITargetAppPath ./DerivedData/Build/Products/Debug/SomLauncher.app
+            -UITargetAppPath ./DerivedData/Build/Products/Debug/SomLauncher.app \
+            CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
