@@ -82,6 +82,7 @@
 		ACD825E12CBC4FDB00106A77 /* LaunchBuilderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchBuilderView.swift; sourceTree = "<group>"; };
 		ACD825E72CBC532700106A77 /* AppLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLauncher.swift; sourceTree = "<group>"; };
 		ACD825E92CBC542000106A77 /* LaunchAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAction.swift; sourceTree = "<group>"; };
+		ACE08EA52DDA6489003130C7 /* SomLauncher.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = SomLauncher.xctestplan; sourceTree = "<group>"; };
 		ACFFEBA92CBB0CB600965AA3 /* UrlInputSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlInputSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -115,6 +116,7 @@
 		AC5FC8AA2CAF20D4003AC6FC = {
 			isa = PBXGroup;
 			children = (
+				ACE08EA52DDA6489003130C7 /* SomLauncher.xctestplan */,
 				AC5FC8B42CAF20D4003AC6FC /* Products */,
 				AC5FC8B52CAF20D4003AC6FC /* SomLauncher */,
 				AC5FC8D12CAF20D6003AC6FC /* SomLauncherUITests */,
@@ -642,9 +644,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = se.somapp.xLauncherUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = xLauncher;
+				TEST_TARGET_NAME = SomLauncher;
 			};
 			name = Debug;
 		};
@@ -658,9 +661,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = se.somapp.xLauncherUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = xLauncher;
+				TEST_TARGET_NAME = SomLauncher;
 			};
 			name = Release;
 		};

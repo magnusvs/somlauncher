@@ -22,20 +22,48 @@ final class SomLauncherUITests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
-        // UI tests must launch the application that they test.
-        let app = XCUIApplication()
-        app.launch()
+//    func testLaunchPerformance() throws {
+//        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *) {
+//            // This measures how long it takes to launch your application.
+//            measure(metrics: [XCTApplicationLaunchMetric()]) {
+//                XCUIApplication().launch()
+//            }
+//        }
+//    }
+    
+    func testAppSheetAccessButtonTriggersOpenPanelWithoutFreezing() {
+        // Given: The app is launched in UI test mode
+        let app = launchCleanApplication()
+        navigateOnboarding(app: app)
 
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        // And: The user has added a new item
+        app.buttons["Add item"].tap()
+
+        // When: The user opens the app selection sheet and taps "Allow access"
+        app.buttons["Select app"].tap()
+        app.buttons["Allow access"].tap()
+
+        // Then: The app remains running in the foreground
+        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 5), "App may have crashed or frozen")
+
+        // And: The NSOpenPanel dialog appears
+        let openPanel = app.dialogs.element(boundBy: 0)
+        XCTAssertTrue(openPanel.waitForExistence(timeout: 5), "NSOpenPanel did not appear — app may have frozen or failed to show dialog")
     }
-
-    func testLaunchPerformance() throws {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *) {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTApplicationLaunchMetric()]) {
-                XCUIApplication().launch()
-            }
-        }
+    
+    func navigateOnboarding(app: XCUIApplication) {
+        app.buttons["Continue"].tap()
+        XCTAssertTrue(app.staticTexts["SomLauncher options"].waitForExistence(timeout: 2))
+        app.buttons["Continue"].tap()
+        XCTAssertTrue(app.staticTexts["You're all set!"].waitForExistence(timeout: 2))
+        app.buttons["Create first launcher"].tap()
+        XCTAssertTrue(app.staticTexts["Build your launcher"].waitForExistence(timeout: 2))
+    }
+    
+    func launchCleanApplication() -> XCUIApplication {
+        let app = XCUIApplication()
+        app.launchArguments.append("--reset-userdefaults")
+        app.launch()
+        return app
     }
 }

@@ -13,6 +13,10 @@ import SwiftData
 struct SomLauncherMain {
     
     static func main() {
+        if CommandLine.arguments.contains("--reset-userdefaults") {
+            UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+        }
+        
         if (UserDefaults.standard.bool(forKey: "onboarding-complete")) {
             SomLauncherApp.main()
         } else {
