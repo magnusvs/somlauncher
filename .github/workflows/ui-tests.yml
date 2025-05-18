@@ -1,0 +1,33 @@
+name: macOS UI Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  ui-tests:
+    runs-on: macos-15
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Build app and tests
+        run: |
+          xcodebuild build \
+            -project SomLauncher.xcodeproj \
+            -scheme SomLauncher \
+            -destination 'platform=macOS' \
+            -derivedDataPath ./DerivedData
+
+      - name: Run UI tests
+        run: |
+          xcodebuild test \
+            -project SomLauncher.xcodeproj \
+            -scheme SomLauncher \
+            -destination 'platform=macOS' \
+            -derivedDataPath ./DerivedData \
+            -only-testing:SomLauncherUITests \
+            -UITargetAppPath ./DerivedData/Build/Products/Debug/SomLauncher.app
