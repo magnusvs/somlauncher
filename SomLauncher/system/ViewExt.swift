@@ -25,4 +25,9 @@ public extension View {
     
     
     func apply<V: View>(@ViewBuilder _ block: (Self) -> V) -> V { block(self) }
+    
+    // Conditionally apply a transform without duplicating view branches
+    @ViewBuilder func `if`(_ condition: Bool, @ViewBuilder transform: (Self) -> some View) -> some View {
+        if condition { transform(self) } else { self }
+    }
 }

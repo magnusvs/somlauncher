@@ -17,6 +17,7 @@ struct NavigationLinkButtonStyle: ButtonStyle {
                 Spacer()
                 Image(systemName: "chevron.right")
                     .foregroundColor(.gray)
+                    .imageScale(.small)
             }
         }
         .contentShape(Rectangle())

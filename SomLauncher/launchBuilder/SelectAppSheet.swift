@@ -5,6 +5,7 @@
 //  Created by Magnus von Scheele on 2024-10-06.
 //
 import SwiftUI
+import AppKit
 
 struct SelectAppSheet: View {
     @Environment(\.dismiss) private var dismiss
@@ -14,7 +15,19 @@ struct SelectAppSheet: View {
     var onUrlSelected: () -> Void
     var onAllowUserApps: () -> Void
     var hasUserApplicationsAccess: Bool
-
+    
+    @State private var searchText: String = ""
+    
+    private var filteredApps: [InstalledApp] {
+        let query = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !query.isEmpty else { return apps }
+        let foldedQuery = query.folding(options: [.diacriticInsensitive, .caseInsensitive], locale: .current)
+        return apps.filter { app in
+            app.name.folding(options: [.diacriticInsensitive, .caseInsensitive], locale: .current)
+                .contains(foldedQuery)
+        }
+    }
+    
     var userAppsWarning: some View {
         VStack(alignment: .leading) {
             Text("Some applications might not be listed until you allow access to the applications folder")
@@ -46,7 +59,7 @@ struct SelectAppSheet: View {
             Text("Web URL")
             Spacer()
         })
-        .buttonStyle(NavigationLinkButtonStyle(showChevron: false))
+        .buttonStyle(NavigationLinkButtonStyle(showChevron: true))
     }
     
     var selectFileButton: some View {
@@ -60,54 +73,87 @@ struct SelectAppSheet: View {
             Text("Select from file")
             Spacer()
         })
-        .buttonStyle(NavigationLinkButtonStyle(showChevron: false))
+        .buttonStyle(NavigationLinkButtonStyle(showChevron: true))
     }
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 0) {
-                
-                Text("Apps")
-                    .font(.headline)
-                    .padding(.bottom, 8)
-                    .padding(.horizontal, 12)
-                
-                
-                if (!hasUserApplicationsAccess) {
-                    userAppsWarning
-                        .padding(.bottom, 12)
-                }
-                
-                VStack(spacing: 0) {
-                    webUrlButton
-                    
-                    // TODO: maybe enable this for selecting individual .apps?
-//                    Divider().padding(.horizontal, 12)
-//                    selectFileButton
-
-                    ForEach(apps.indices, id: \.self) { index in
-                        Divider()
-                            .padding(.horizontal, 12)
-                        
-                        let app = apps[index]
-                        Button(action: {
-                            onAppSelected(app)
-                            dismiss()
-                        }, label: {
-                            if let icon = app.icon {
-                                Image(nsImage: icon)
-                                    .resizable()
-                                    .frame(width: 24, height: 24)
-                            }
-                            Text(app.name)
-                            Spacer()
-                        })
-                        .buttonStyle(NavigationLinkButtonStyle(showChevron: false))
+        NavigationStack {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 0) {
+                    HStack(spacing: 12) {
+                        Text("Select app").font(.headline)
+                        Spacer()
+                        SearchFieldRepresentable(text: $searchText)
+                            .frame(width: 240)
                     }
+                    
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 12)
+                    .padding(.bottom, 16)
+                    
+                    if (!hasUserApplicationsAccess) {
+                        userAppsWarning
+                            .padding(.bottom, 12)
+                    }
+                    
+                    VStack(spacing: 0) {
+                        webUrlButton
+                        
+                        // TODO: maybe enable this for selecting individual .apps?
+//                        Divider().padding(.horizontal, 12)
+//                        selectFileButton
+
+                        ForEach(filteredApps.indices, id: \.self) { index in
+                            Divider()
+                                .padding(.horizontal, 12)
+                            
+                            let app = filteredApps[index]
+                            Button(action: {
+                                onAppSelected(app)
+                                dismiss()
+                            }, label: {
+                                if let icon = app.icon {
+                                    Image(nsImage: icon)
+                                        .resizable()
+                                        .frame(width: 24, height: 24)
+                                }
+                                Text(app.name)
+                                Spacer()
+                            })
+                            .buttonStyle(NavigationLinkButtonStyle(showChevron: true))
+                        }
+                    }
+                    .sectionStyle()
                 }
-                .sectionStyle()
+                .padding(16)
             }
-            .padding(16)
+        }
+    }
+}
+
+struct SearchFieldRepresentable: NSViewRepresentable {
+    @Binding var text: String
+    var placeholder: String = "Search"
+
+    func makeCoordinator() -> Coordinator { Coordinator(text: $text) }
+
+    func makeNSView(context: Context) -> NSSearchField {
+        let f = NSSearchField()
+        f.placeholderString = placeholder
+        f.delegate = context.coordinator   // expects NSSearchFieldDelegate
+        return f
+    }
+
+    func updateNSView(_ nsView: NSSearchField, context: Context) {
+        if nsView.stringValue != text { nsView.stringValue = text }
+    }
+
+    final class Coordinator: NSObject, NSSearchFieldDelegate {
+        var text: Binding<String>
+        init(text: Binding<String>) { self.text = text }
+        func controlTextDidChange(_ obj: Notification) {
+            guard let f = obj.object as? NSSearchField else { return }
+            text.wrappedValue = f.stringValue
         }
     }
 }
