@@ -39,9 +39,7 @@ struct SomLauncherCommonScene: Scene {
         Window("Settings", id: "settings") {
             ContentView()
                 .modelContainer(container)
-                .toolbarBackground(.clear)
         }
-        .windowStyle(.hiddenTitleBar)
     }
 }
 
