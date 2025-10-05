@@ -132,7 +132,6 @@ struct StartSettingsView: View {
             menuBarIconPicker
                 .padding(.top, 16)
             
-            
             GradientButton(action: onContinue, text: "Continue")
                 .padding(.top, 32)
             Text("Options can be changed later in settings")
@@ -147,29 +146,18 @@ struct InfoView: View {
     
     @AppStorage("menu-bar-icon") var menuBarIcon: String = "dot.scope.display"
     
-    private let selectedApp: InstalledApp? = FileManager.default.getAppByUrl(url: URL(fileURLWithPath: "/System/Applications/Mail.app"))
+    private let selectedApp: InstalledApp? = FileManager.default.getAppByUrl(url: URL(fileURLWithPath: "/System/Applications/Mail.app"))!
+    
+    @State private var currentTime = Date()
+    private let timer = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
     
     var onContinue: () -> Void
     
-    private var appView: some View {
-        Button(action: {}) {
-            if let icon = selectedApp?.icon {
-                Image(nsImage: icon)
-                    .resizable()
-                    .frame(width: 24, height: 24)
-            }
-            if let name = selectedApp?.name {
-                Text(name)
-            }
-            Spacer()
-        }
-        .contentShape(Rectangle())
-        .buttonStyle(NavigationLinkButtonStyle())
-    }
-    
     private var appsListView: some View {
         VStack(spacing: 0) {
-            appView
+            CreateLaunchItemView(
+                launchURL: .constant(selectedApp?.url),
+                onDelete: { })
                 .disabled(true)
             Divider()
             Button(action: {}) {
@@ -178,12 +166,10 @@ struct InfoView: View {
                 Text("Add item")
                 Spacer()
             }
-            .disabled(true)
-            .foregroundColor(.gray)
             .buttonStyle(NavigationLinkButtonStyle())
+            .cornerRadius(8)
+            .disabled(true)
         }
-        .frame(maxWidth: .infinity)
-        .sectionStyle()
     }
     
     var body: some View {
@@ -195,20 +181,28 @@ struct InfoView: View {
                 .font(.caption)
                 .padding(.bottom, 16)
             
-            Text("1. Add apps to your first launcher")
-            appsListView
-                .padding(.bottom, 16)
-            
-            Text("2. Name your launcher")
+            Text("1. Name your launcher")
             Text("For example _Work_")
                 .font(.caption)
+                .padding(.bottom, 16)
+            
+            Text("2. Add apps to your first launcher")
+            appsListView
             
             VStack {
                 Text("3. Run your launcher any time from the menu bar icon")
                 HStack(alignment: .center) {
+                    Spacer()
                     Image(systemName: menuBarIcon)
+                        .padding(.horizontal)
+                    Text(currentTime.formatted(.dateTime.hour().minute()))
+                        .monospacedDigit()
+                        .onReceive(timer) { _ in
+                            currentTime = Date()
+                        }
                 }
-                .padding(.vertical, 4)
+                .padding(.horizontal)
+                .frame(height: 22)
                 .frame(maxWidth: .infinity)
                 .foregroundStyle(.white)
                 .background(.blue.opacity(0.8))
@@ -260,6 +254,10 @@ struct WelcomeView: View {
         }
         .fixedSize(horizontal: true, vertical: false)
     }
+}
+
+#Preview {
+    InfoView(onContinue: {})
 }
 
 #Preview {
