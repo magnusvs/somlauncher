@@ -49,31 +49,29 @@ struct SelectAppSheet: View {
     }
     
     var webUrlButton: some View {
-        Button(action: {
-            onUrlSelected()
-            dismiss()
-        }, label: {
+        NavigationLink(value: "") {
             Image(systemName: "network")
                 .font(.system(size: 20))
                 .frame(width: 24, height: 24)
             Text("Web URL")
-            Spacer()
+        }
+        .simultaneousGesture(TapGesture().onEnded {
+            onUrlSelected()
+            dismiss()
         })
-        .buttonStyle(NavigationLinkButtonStyle(showChevron: true))
     }
     
     var selectFileButton: some View {
-        Button(action: {
-            onAllowUserApps()
-            dismiss()
-        }, label: {
+        NavigationLink(value: "") {
             Image(systemName: "folder")
                 .font(.system(size: 20))
                 .frame(width: 24, height: 24)
             Text("Select from file")
-            Spacer()
+        }
+        .simultaneousGesture(TapGesture().onEnded {
+            onAllowUserApps()
+            dismiss()
         })
-        .buttonStyle(NavigationLinkButtonStyle(showChevron: true))
     }
 
     var body: some View {
@@ -87,45 +85,39 @@ struct SelectAppSheet: View {
                             .frame(width: 240)
                     }
                     
-                    .padding(.vertical, 8)
-                    .padding(.horizontal, 12)
-                    .padding(.bottom, 16)
+                    .padding(.vertical, 10)
+                    .padding(.horizontal, 20)
                     
                     if (!hasUserApplicationsAccess) {
                         userAppsWarning
-                            .padding(.bottom, 12)
+                            .padding(.top, 16)
+                            .padding(.horizontal, 20)
                     }
                     
-                    VStack(spacing: 0) {
+                    Form {
                         webUrlButton
                         
                         // TODO: maybe enable this for selecting individual .apps?
-//                        Divider().padding(.horizontal, 12)
-//                        selectFileButton
-
+                        // selectFileButton
+                        
                         ForEach(filteredApps.indices, id: \.self) { index in
-                            Divider()
-                                .padding(.horizontal, 12)
-                            
                             let app = filteredApps[index]
-                            Button(action: {
-                                onAppSelected(app)
-                                dismiss()
-                            }, label: {
+                            NavigationLink(value: "") {
                                 if let icon = app.icon {
                                     Image(nsImage: icon)
                                         .resizable()
                                         .frame(width: 24, height: 24)
                                 }
                                 Text(app.name)
-                                Spacer()
+                            }
+                            .simultaneousGesture(TapGesture().onEnded {
+                                onAppSelected(app)
+                                dismiss()
                             })
-                            .buttonStyle(NavigationLinkButtonStyle(showChevron: true))
                         }
                     }
-                    .sectionStyle()
+                    .formStyle(.grouped)
                 }
-                .padding(16)
             }
         }
     }
@@ -140,7 +132,7 @@ struct SearchFieldRepresentable: NSViewRepresentable {
     func makeNSView(context: Context) -> NSSearchField {
         let f = NSSearchField()
         f.placeholderString = placeholder
-        f.delegate = context.coordinator   // expects NSSearchFieldDelegate
+        f.delegate = context.coordinator
         return f
     }
 
