@@ -92,7 +92,6 @@ struct Settings: View {
                 Text("SomLauncher")
             }.frame(maxWidth: .infinity, alignment: .center)
         }
-        .padding()
         .frame(maxHeight: .infinity)
     }
 }

@@ -134,6 +134,7 @@ struct CreateLaunchItemView: View {
         .contentShape(Rectangle())
         .onHover(perform: { over in showDelete = over })
         .buttonStyle(NavigationLinkButtonStyle())
+        .cornerRadius(8)
         .sheet(isPresented: $isAppsSheetOpened) { selectAppSheet }
         .sheet(isPresented: $isUrlSheetOpened) { urlInputSheet }
     }

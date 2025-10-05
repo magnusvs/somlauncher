@@ -29,104 +29,106 @@ struct LaunchBuilderView: View {
     
     var body: some View {
         return ZStack {
-            ScrollView {
-                VStack(alignment: .leading) {
-                    Text("\(selectedLauncher == nil ? "Build" : "Edit") your launcher")
-                        .font(.headline)
-                    Text("Build your custom launching script by adding Apps or URLs to the list. These will all be opened when the launcher is run.")
-                        .font(.subheadline)
-                    
-                    Spacer(minLength: 16)
-                    
-                    VStack(alignment: .leading, spacing: 0) {
-                        ForEach($actions) { $action in
-                            CreateLaunchItemView(
-                                launchURL: $action.url,
-                                onDelete: { actions.remove(at: actions.firstIndex(of: action)!) })
-                            Divider()
-                        }
-                        Button(action: {
-                            actions.append(LaunchAction(url: nil))
-                        }) {
-                            Image(systemName: "plus.circle")
-                                .padding(2)
-                                .frame(width: 24, height: 24)
-                            Text("Add item")
-                            Spacer()
-                        }
-                        .foregroundColor(.gray)
-                        .buttonStyle(NavigationLinkButtonStyle(showChevron: false))
-                        .cornerRadius(8)
+            GeometryReader { geo in
+                
+                ScrollView {
+                    VStack(alignment: .leading) {
+                        Text("Name")
+                            .font(.subheadline)
+                            .padding(.horizontal, 20)
+                        TextField("", text: $nameInput, prompt: Text("Required"))
+                            .controlSize(.large)
+                            .padding(.horizontal, 20)
                         
+                        Text("Build your custom launching script by adding Apps or URLs to the list. These will all be opened when the launcher is run.")
+                            .font(.subheadline)
+                            .padding(.top, 16)
+                            .padding(.horizontal, 20)
+                        
+                        VStack(alignment: .leading, spacing: 0) {
+                            ForEach($actions) { $action in
+                                CreateLaunchItemView(
+                                    launchURL: $action.url,
+                                    onDelete: { actions.remove(at: actions.firstIndex(of: action)!) })
+                            }
+                            
+                            Button(action: {
+                                actions.append(LaunchAction(url: nil))
+                            }) {
+                                Image(systemName: "plus.circle")
+                                    .frame(width: 24, height: 24)
+                                Text("Add item")
+                            }
+                            .buttonStyle(NavigationLinkButtonStyle())
+                            .cornerRadius(8)
+                        }
+                        .animation(.easeInOut, value: actions)
+                        .padding(.horizontal, 12)
+
+                        Spacer(minLength: 0)
+                        
+                        HStack {
+                            Button(action: {
+                                showLaunchConfirmation.toggle()
+                            }, label: {
+                                Text("Run launcher")
+                            })
+                            .disabled(actions.isEmpty)
+                            .buttonStyle(.bordered)
+                            .controlSize(.large)
+                            .confirmationDialog(
+                                "Launch all your actions?",
+                                isPresented: $showLaunchConfirmation
+                            ) {
+                                Button("Launch") {
+                                    actions.forEach { action in
+                                        AppLauncher.openAction(action: action)
+                                    }
+                                }
+                            }
+                            
+                            
+                            Button(action: {
+                                let items = actions.compactMap({ action in
+                                    if let url = action.url {
+                                        LauncherScript.Item(url: url)
+                                    } else {
+                                        nil
+                                    }
+                                })
+                                
+                                if let script = selectedLauncher {
+                                    script.name = nameInput
+                                    script.items = items
+                                    do {
+                                        try script.modelContext?.save()
+                                    } catch {
+                                        print("Error saving script")
+                                        modelContext.insert(script)
+                                    }
+                                } else {
+                                    let script = LauncherScript(name: nameInput, items: items)
+                                    modelContext.insert(script)
+                                }
+                                
+                                withAnimation { showSuccess.toggle() }
+                            }, label: { Text("Save launcher") })
+                            .buttonStyle(.borderedProminent)
+                            .disabled(actions
+                                .filter({ action in action.url != nil })
+                                .count == 0
+                                      || nameInput.count <= 0
+                            )
+                            .controlSize(.large)
+                        }
+                        .padding(.horizontal, 20)
+                        .padding(.vertical)
                     }
                     .frame(maxWidth: .infinity)
-                    .sectionStyle()
-                    .animation(.easeInOut, value: actions)
-                    
-                    Spacer()
-                    Button(action: {
-                        showLaunchConfirmation.toggle()
-                    }, label: {
-                        Label("Test launch", systemImage: "chevron.right")
-                            .labelStyle(ReversedLabelStyle())
-                    })
-                    .disabled(actions.isEmpty)
-                    .padding(.horizontal, 12)
-                    .buttonStyle(.plain)
-                    .confirmationDialog(
-                        "Launch all your actions?",
-                        isPresented: $showLaunchConfirmation
-                    ) {
-                        Button("Launch") {
-                            actions.forEach { action in
-                                AppLauncher.openAction(action: action)
-                            }
-                        }
-                    }
-                    
-                    
-                    Spacer(minLength: 32)
-                    Text("Name")
-                        .font(.subheadline)
-                    TextField("", text: $nameInput, prompt: Text("Required"))
-                        .textFieldStyle(.roundedBorder)
-                        .controlSize(.large)
-                    
-                    Spacer(minLength: 8)
-                    
-                    Button(action: {
-                        let items = actions.compactMap({ action in
-                            if let url = action.url {
-                                LauncherScript.Item(url: url)
-                            } else {
-                                nil
-                            }
-                        })
-                        
-                        if let script = selectedLauncher {
-                            script.name = nameInput
-                            script.items = items
-                            do {
-                                try script.modelContext?.save()
-                            } catch {
-                                print("Error saving script")
-                                modelContext.insert(script)
-                            }
-                        } else {
-                            let script = LauncherScript(name: nameInput, items: items)
-                            modelContext.insert(script)
-                        }
-                    
-                        withAnimation { showSuccess.toggle() }
-                    }, label: { Text("Save") }).buttonStyle(.borderedProminent)
-                        .disabled(actions
-                            .filter({ action in action.url != nil })
-                            .count == 0
-                                  || nameInput.count <= 0
-                        )
-                        .controlSize(.large)
-                }.padding()
+                    .frame(minHeight: geo.size.height, alignment: .top)
+                }
             }
+            
             if (showSuccess) {
                 SuccessView(launcherName: nameInput, onDismiss: { showSuccess.toggle() })
             }
@@ -151,6 +153,7 @@ struct LaunchBuilderView: View {
                 }
             }
         }
+        .navigationTitle("\(selectedLauncher == nil ? "Build" : "Edit") your launcher")
         .onChange(of: selectedLauncher, {
             nameInput = selectedLauncher?.name ?? ""
             actions = selectedLauncher?.items.map({
