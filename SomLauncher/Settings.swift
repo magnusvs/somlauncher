@@ -53,6 +53,7 @@ struct Settings: View {
             LabeledContent("Menu bar icon") {
                 if (menuBarIcon == "RocketIcon") {
                     Image(menuBarIcon)
+                        .renderingMode(.template)
                         .resizable()
                         .frame(width: 18, height: 18)
                 } else {

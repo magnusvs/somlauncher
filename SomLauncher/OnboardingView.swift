@@ -110,9 +110,10 @@ struct StartSettingsView: View {
             } label: {
                 if (menuBarIcon == "RocketIcon")  {
                     Image(menuBarIcon)
+                        .renderingMode(.template)
                         .resizable()
-                        .frame(width: 16, height: 16)
                         .tint(.primary)
+                        .frame(width: 16, height: 16)
                 } else {
                     Image(systemName: menuBarIcon)
                 }
@@ -211,7 +212,6 @@ struct InfoView: View {
                         Image(menuBarIcon)
                             .resizable()
                             .frame(width: 16, height: 16)
-                            .tint(.primary)
                             .padding(.horizontal)
                     } else {
                         Image(systemName: menuBarIcon)
