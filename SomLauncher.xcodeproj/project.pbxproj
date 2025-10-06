@@ -18,6 +18,7 @@
 		AC5FC8BE2CAF20D6003AC6FC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC5FC8BD2CAF20D6003AC6FC /* Preview Assets.xcassets */; };
 		AC5FC8D32CAF20D6003AC6FC /* SomLauncherUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5FC8D22CAF20D6003AC6FC /* SomLauncherUITests.swift */; };
 		AC6035762CCD057500A38C98 /* DockIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6035752CCD057200A38C98 /* DockIcon.swift */; };
+		AC7F09F02E945D8500E28D13 /* SomLauncher-icon.icon in Resources */ = {isa = PBXBuildFile; fileRef = AC7F09EF2E945D8500E28D13 /* SomLauncher-icon.icon */; };
 		AC837C172CF21A49007C70C7 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC837C162CF21A45007C70C7 /* OnboardingView.swift */; };
 		AC89149E2CB14D1300C476B4 /* AppIconProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC89149D2CB14D0C00C476B4 /* AppIconProvider.swift */; };
 		AC8914A02CB3076200C476B4 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC89149F2CB3076000C476B4 /* FileManager.swift */; };
@@ -68,6 +69,7 @@
 		AC5FC8CE2CAF20D6003AC6FC /* SomLauncherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SomLauncherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC5FC8D22CAF20D6003AC6FC /* SomLauncherUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomLauncherUITests.swift; sourceTree = "<group>"; };
 		AC6035752CCD057200A38C98 /* DockIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DockIcon.swift; sourceTree = "<group>"; };
+		AC7F09EF2E945D8500E28D13 /* SomLauncher-icon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = "SomLauncher-icon.icon"; sourceTree = "<group>"; };
 		AC837C162CF21A45007C70C7 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		AC89149D2CB14D0C00C476B4 /* AppIconProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconProvider.swift; sourceTree = "<group>"; };
 		AC89149F2CB3076000C476B4 /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 		AC5FC8AA2CAF20D4003AC6FC = {
 			isa = PBXGroup;
 			children = (
+				AC7F09EF2E945D8500E28D13 /* SomLauncher-icon.icon */,
 				ACE08EA52DDA6489003130C7 /* SomLauncher.xctestplan */,
 				AC5FC8B42CAF20D4003AC6FC /* Products */,
 				AC5FC8B52CAF20D4003AC6FC /* SomLauncher */,
@@ -324,6 +327,7 @@
 			files = (
 				AC5FC8BE2CAF20D6003AC6FC /* Preview Assets.xcassets in Resources */,
 				AC5FC8BB2CAF20D6003AC6FC /* Assets.xcassets in Resources */,
+				AC7F09F02E945D8500E28D13 /* SomLauncher-icon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -527,9 +531,9 @@
 		AC5FC8D92CAF20D6003AC6FC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "SomLauncher-icon";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = SomLauncher/SomLauncher.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
@@ -564,9 +568,9 @@
 		AC5FC8DA2CAF20D6003AC6FC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "SomLauncher-icon";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = SomLauncher/SomLauncherRelease.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";

@@ -82,8 +82,8 @@ struct OnboardingView: View {
 
 struct StartSettingsView: View {
     @State private var iconPickerPresented = false
-    @AppStorage("menu-bar-icon") var menuBarIcon: String = "dot.scope.display"
-    @AppStorage("show-dock-icon") var showDockIcon: Bool = false
+    @AppStorage("menu-bar-icon") var menuBarIcon: String = "RocketIcon"
+    @AppStorage("menu-bar-icon-custom") var menuBarIconShowCustom: Bool = false
     
     var onContinue: () -> Void
     
@@ -108,7 +108,14 @@ struct StartSettingsView: View {
             Button {
                 iconPickerPresented = true
             } label: {
-                Image(systemName: menuBarIcon)
+                if (menuBarIcon == "RocketIcon")  {
+                    Image(menuBarIcon)
+                        .resizable()
+                        .frame(width: 16, height: 16)
+                        .tint(.primary)
+                } else {
+                    Image(systemName: menuBarIcon)
+                }
                 
                 Text("Menu bar icon")
                     .font(.subheadline)
@@ -116,7 +123,14 @@ struct StartSettingsView: View {
                     .padding(.vertical, 6)
             }
             .sheet(isPresented: $iconPickerPresented) {
-                SymbolPicker(symbol: $menuBarIcon)
+                SymbolPicker(symbol: Binding<String>(
+                    get: { menuBarIcon },
+                    set: { newValue in
+                        guard newValue != menuBarIcon else { return }
+                        menuBarIcon = newValue
+                        menuBarIconShowCustom = newValue != "RocketIcon"
+                    }
+                ))
             }
             .buttonStyle(.plain)
         }
@@ -144,7 +158,7 @@ struct StartSettingsView: View {
 
 struct InfoView: View {
     
-    @AppStorage("menu-bar-icon") var menuBarIcon: String = "dot.scope.display"
+    @AppStorage("menu-bar-icon") var menuBarIcon: String = "RocketIcon"
     
     private let selectedApp: InstalledApp? = FileManager.default.getAppByUrl(url: URL(fileURLWithPath: "/System/Applications/Mail.app"))!
     
@@ -193,8 +207,16 @@ struct InfoView: View {
                 Text("3. Run your launcher any time from the menu bar icon")
                 HStack(alignment: .center) {
                     Spacer()
-                    Image(systemName: menuBarIcon)
-                        .padding(.horizontal)
+                    if (menuBarIcon == "RocketIcon")  {
+                        Image(menuBarIcon)
+                            .resizable()
+                            .frame(width: 16, height: 16)
+                            .tint(.primary)
+                            .padding(.horizontal)
+                    } else {
+                        Image(systemName: menuBarIcon)
+                            .padding(.horizontal)
+                    }
                     Text(currentTime.formatted(.dateTime.hour().minute()))
                         .monospacedDigit()
                         .onReceive(timer) { _ in
@@ -242,8 +264,10 @@ struct WelcomeView: View {
     
     var body: some View {
         VStack {
-            DockIcon()
-                .frame(width: 128, height: 128)
+            Image("LauncherIcon")
+                .resizable()
+                .frame(width: 112, height: 112)
+                .padding(.bottom)
             Text("Welcome")
                 .font(.title)
             Text("Let's get you started")

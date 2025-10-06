@@ -11,7 +11,8 @@ import SymbolPicker
 
 struct Settings: View {
     @State private var iconPickerPresented = false
-    @AppStorage("menu-bar-icon") var menuBarIcon: String = "dot.scope.display"
+    @AppStorage("menu-bar-icon") var menuBarIcon: String = "RocketIcon"
+    @AppStorage("menu-bar-icon-custom") var menuBarIconShowCustom: Bool = false
     @AppStorage("show-dock-icon") var showDockIcon: Bool = false
     var launchAtLoginToggle: some View {
         LaunchAtLogin.Toggle {
@@ -23,13 +24,43 @@ struct Settings: View {
         .toggleStyle(.switch)
         .controlSize(.mini)
     }
+    
+    var menuBarCustomEnabled: some View {
+        HStack {
+            Toggle(
+                isOn: $menuBarIconShowCustom,
+                label: {
+                    HStack {
+                        Text("Custom menu bar icon")
+                        Spacer()
+                    }
+                }
+            )
+            .toggleStyle(.switch)
+            .controlSize(.mini)
+        }
+        .onChange(of: menuBarIconShowCustom, initial: menuBarIconShowCustom) { old, newShow in
+            if (newShow) {
+                menuBarIcon = "dot.scope.display"
+            } else {
+                menuBarIcon = "RocketIcon"
+            }
+        }
+    }
 
     var menuBarIconPicker: some View {
         NavigationLink(value: "") {
             LabeledContent("Menu bar icon") {
-                Image(systemName: menuBarIcon)
+                if (menuBarIcon == "RocketIcon") {
+                    Image(menuBarIcon)
+                        .resizable()
+                        .frame(width: 18, height: 18)
+                } else {
+                    Image(systemName: menuBarIcon)
+                }
             }
         }
+        .disabled(!menuBarIconShowCustom)
         .simultaneousGesture(TapGesture().onEnded { iconPickerPresented = true })
         .sheet(isPresented: $iconPickerPresented) {
             SymbolPicker(symbol: $menuBarIcon)
@@ -60,24 +91,11 @@ struct Settings: View {
         }
     }
 
-    func setDockIcon() {
-        let icon = DockIcon()
-        let iconImage = icon.asImage(pixelWidth: 512, pixelHeight: 512)
-        print(
-            NSWorkspace.shared.setIcon(
-                iconImage,
-                forFile: Bundle.main.bundlePath,
-                options: []
-            )
-        )
-        NSApp.dockTile.contentView = NSHostingView(rootView: icon)
-        NSApp.dockTile.display()
-    }
-
     var body: some View {
         VStack(alignment: .leading) {
             Form {
                 launchAtLoginToggle
+                menuBarCustomEnabled
                 menuBarIconPicker
                 showInDockToggle
             }
@@ -86,11 +104,13 @@ struct Settings: View {
             Spacer()
 
             VStack {
-                Image(systemName: "dot.scope.display")
-                    .imageScale(.large)
-                    .foregroundStyle(.tint)
+                Image("LauncherIcon")
+                    .resizable()
+                    .frame(width: 24, height: 24)
                 Text("SomLauncher")
-            }.frame(maxWidth: .infinity, alignment: .center)
+            }
+            .frame(maxWidth: .infinity, alignment: .center)
+            .padding()
         }
         .frame(maxHeight: .infinity)
     }

@@ -31,9 +31,22 @@ struct SomLauncherCommonScene: Scene {
     var menuBarIcon: String
     
     var body: some Scene {
-        MenuBarExtra("SomLauncher", systemImage: menuBarIcon) {
+        MenuBarExtra() {
             AppMenu()
                 .modelContainer(container)
+        } label: {
+            if (menuBarIcon == "RocketIcon") {
+                let image: NSImage = {
+                    let ratio = $0.size.height / $0.size.width
+                    $0.size.height = 24
+                    $0.size.width = 24 / ratio
+                    return $0
+                }(NSImage(named: "RocketIcon")!)
+
+                Image(nsImage: image)
+            } else {
+                Image(systemName: menuBarIcon)
+            }
         }
         
         Window("Settings", id: "settings") {
@@ -46,7 +59,7 @@ struct SomLauncherCommonScene: Scene {
 struct SomLauncherAppWithOnboarding : App {
     let container: ModelContainer
     
-    @AppStorage("menu-bar-icon") private var menuBarIcon: String = "dot.scope.display"
+    @AppStorage("menu-bar-icon") private var menuBarIcon: String = "RocketIcon"
     @AppStorage("onboarding-complete") private var onboardingComplete: Bool = false
     
     @Environment(\.openWindow) private var openWindow
@@ -81,7 +94,7 @@ struct SomLauncherAppWithOnboarding : App {
 struct SomLauncherApp : App {
     let container: ModelContainer
     
-    @AppStorage("menu-bar-icon") private var menuBarIcon: String = "dot.scope.display"
+    @AppStorage("menu-bar-icon") private var menuBarIcon: String = "RocketIcon"
     @AppStorage("onboarding-complete") private var onboardingComplete: Bool = false
     
     @Environment(\.openWindow) private var openWindow
