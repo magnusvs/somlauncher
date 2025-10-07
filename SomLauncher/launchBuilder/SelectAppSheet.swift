@@ -84,7 +84,6 @@ struct SelectAppSheet: View {
                         SearchFieldRepresentable(text: $searchText)
                             .frame(width: 240)
                     }
-                    
                     .padding(.vertical, 10)
                     .padding(.horizontal, 20)
                     
@@ -117,8 +116,19 @@ struct SelectAppSheet: View {
                         }
                     }
                     .formStyle(.grouped)
+                    .modifier(HideFormBackgroundIfNeeded())
                 }
             }
+        }
+    }
+}
+
+struct HideFormBackgroundIfNeeded: ViewModifier {
+    func body(content: Content) -> some View {
+        if #unavailable(macOS 26) {
+            content.scrollContentBackground(.hidden)
+        } else {
+            content
         }
     }
 }

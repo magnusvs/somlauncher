@@ -36,6 +36,7 @@ struct LaunchBuilderView: View {
                         Text("Name")
                             .font(.subheadline)
                             .padding(.horizontal, 20)
+                            .padding(.top, 16)
                         TextField("", text: $nameInput, prompt: Text("Required"))
                             .controlSize(.large)
                             .padding(.horizontal, 20)
