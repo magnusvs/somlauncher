@@ -40,6 +40,7 @@ struct SomLauncherCommonScene: Scene {
                     let ratio = $0.size.height / $0.size.width
                     $0.size.height = 24
                     $0.size.width = 24 / ratio
+                    $0.isTemplate = true
                     return $0
                 }(NSImage(named: "RocketIcon")!)
 
