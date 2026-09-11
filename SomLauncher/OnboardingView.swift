@@ -6,6 +6,7 @@
 //
 import SwiftUI
 import SymbolPicker
+import Combine
 
 struct OnboardingView: View {
     

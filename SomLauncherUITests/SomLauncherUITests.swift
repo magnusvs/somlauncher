@@ -31,6 +31,7 @@ final class SomLauncherUITests: XCTestCase {
 //        }
 //    }
     
+    @MainActor
     func testAppSheetAccessButtonTriggersOpenPanelWithoutFreezing() {
         // Given: The app is launched in UI test mode
         let app = launchCleanApplication()
@@ -51,6 +52,7 @@ final class SomLauncherUITests: XCTestCase {
         XCTAssertTrue(openPanel.waitForExistence(timeout: 5), "NSOpenPanel did not appear — app may have frozen or failed to show dialog")
     }
     
+    @MainActor
     func navigateOnboarding(app: XCUIApplication) {
         app.buttons["Continue"].tap()
         XCTAssertTrue(app.staticTexts["SomLauncher options"].waitForExistence(timeout: 2))
@@ -60,6 +62,7 @@ final class SomLauncherUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Build your launcher"].waitForExistence(timeout: 2))
     }
     
+    @MainActor
     func launchCleanApplication() -> XCUIApplication {
         let app = XCUIApplication()
         app.launchArguments.append("--reset-userdefaults")

@@ -2,9 +2,10 @@ import SwiftUI
 import ServiceManagement
 import os.log
 
+@MainActor
 public enum LaunchAtLogin {
 	private static let logger = Logger(subsystem: "com.sindresorhus.LaunchAtLogin", category: "main")
-	fileprivate static let observable = Observable()
+    fileprivate static let observable = Observable()
 
 	/**
 	Toggle “launch at login” for your app or check whether it's enabled.
@@ -43,6 +44,7 @@ public enum LaunchAtLogin {
 }
 
 extension LaunchAtLogin {
+	@MainActor
 	final class Observable: ObservableObject {
 		var isEnabled: Bool {
 			get { LaunchAtLogin.isEnabled }

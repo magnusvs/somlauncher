@@ -50,7 +50,7 @@ struct ApplicationsFolderFileBookmark {
         FileBookmarks.resolveBookmark(for: keyBookmarkUserApplications)
     }
 
-    static func requestAccess() -> URL? {
+    @MainActor static func requestAccess() -> URL? {
         let openPanel = NSOpenPanel()
         openPanel.title = "Please grant access to the Applications folder"
         openPanel.message = "SomLauncher needs access to your Applications folder to list all apps"
