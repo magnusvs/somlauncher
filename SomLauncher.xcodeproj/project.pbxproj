@@ -29,10 +29,10 @@
 		AC8914AD2CB46CC100C476B4 /* LauncherScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8914AC2CB46CBE00C476B4 /* LauncherScript.swift */; };
 		AC8914AF2CB470A900C476B4 /* LabelStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8914AE2CB470A700C476B4 /* LabelStyles.swift */; };
 		AC9342532CB075EF005AA1C2 /* AppMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9342522CB075EB005AA1C2 /* AppMenu.swift */; };
+		ACCA9E0130545671007F11B2 /* LaunchAtLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCA9E0030545671007F11B2 /* LaunchAtLogin.swift */; };
 		ACD825E22CBC4FDC00106A77 /* LaunchBuilderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD825E12CBC4FDB00106A77 /* LaunchBuilderView.swift */; };
 		ACD825E82CBC532700106A77 /* AppLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD825E72CBC532700106A77 /* AppLauncher.swift */; };
 		ACD825EA2CBC542000106A77 /* LaunchAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD825E92CBC542000106A77 /* LaunchAction.swift */; };
-		ACF8D20E2CC1A6AD0085E34C /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = ACF8D20D2CC1A6AD0085E34C /* LaunchAtLogin */; };
 		ACFFEBAA2CBB0CBB00965AA3 /* UrlInputSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFFEBA92CBB0CB600965AA3 /* UrlInputSheet.swift */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +81,7 @@
 		AC8914AE2CB470A700C476B4 /* LabelStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelStyles.swift; sourceTree = "<group>"; };
 		AC9342522CB075EB005AA1C2 /* AppMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMenu.swift; sourceTree = "<group>"; };
 		ACAC652E2CD66E4400A258D8 /* SomLauncherRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SomLauncherRelease.entitlements; sourceTree = "<group>"; };
+		ACCA9E0030545671007F11B2 /* LaunchAtLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLogin.swift; sourceTree = "<group>"; };
 		ACD825E12CBC4FDB00106A77 /* LaunchBuilderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchBuilderView.swift; sourceTree = "<group>"; };
 		ACD825E72CBC532700106A77 /* AppLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLauncher.swift; sourceTree = "<group>"; };
 		ACD825E92CBC542000106A77 /* LaunchAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAction.swift; sourceTree = "<group>"; };
@@ -94,7 +95,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC1DBEBA2CC5342300571253 /* SymbolPicker in Frameworks */,
-				ACF8D20E2CC1A6AD0085E34C /* LaunchAtLogin in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -199,6 +199,7 @@
 		ACD825E62CBC52EF00106A77 /* system */ = {
 			isa = PBXGroup;
 			children = (
+				ACCA9E0030545671007F11B2 /* LaunchAtLogin.swift */,
 				AC1F6B832CE92F29004E8D30 /* FileBookmarks.swift */,
 				AC0073CA2CD1824F00F91623 /* ImageSaver.swift */,
 				AC55DFD42CCE4C69004D6D87 /* ViewExt.swift */,
@@ -306,7 +307,6 @@
 			);
 			mainGroup = AC5FC8AA2CAF20D4003AC6FC;
 			packageReferences = (
-				ACF8D20C2CC1A6AD0085E34C /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */,
 				AC1DBEB82CC5342300571253 /* XCRemoteSwiftPackageReference "SymbolPicker" */,
 			);
 			productRefGroup = AC5FC8B42CAF20D4003AC6FC /* Products */;
@@ -369,6 +369,7 @@
 				AC837C172CF21A49007C70C7 /* OnboardingView.swift in Sources */,
 				AC1DBEBC2CC5615700571253 /* Settings.swift in Sources */,
 				ACD825EA2CBC542000106A77 /* LaunchAction.swift in Sources */,
+				ACCA9E0130545671007F11B2 /* LaunchAtLogin.swift in Sources */,
 				AC5FC8B72CAF20D4003AC6FC /* SomLauncherApp.swift in Sources */,
 				ACD825E22CBC4FDC00106A77 /* LaunchBuilderView.swift in Sources */,
 				ACFFEBAA2CBB0CBB00965AA3 /* UrlInputSheet.swift in Sources */,
@@ -722,14 +723,6 @@
 				minimumVersion = 1.5.3;
 			};
 		};
-		ACF8D20C2CC1A6AD0085E34C /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin-Modern";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -737,11 +730,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AC1DBEB82CC5342300571253 /* XCRemoteSwiftPackageReference "SymbolPicker" */;
 			productName = SymbolPicker;
-		};
-		ACF8D20D2CC1A6AD0085E34C /* LaunchAtLogin */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = ACF8D20C2CC1A6AD0085E34C /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */;
-			productName = LaunchAtLogin;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

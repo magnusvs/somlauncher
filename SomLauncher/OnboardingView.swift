@@ -5,7 +5,6 @@
 //  Created by Magnus von Scheele on 2024-11-23.
 //
 import SwiftUI
-import LaunchAtLogin
 import SymbolPicker
 
 struct OnboardingView: View {

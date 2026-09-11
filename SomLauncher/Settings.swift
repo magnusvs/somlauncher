@@ -5,7 +5,6 @@
 //  Created by Magnus von Scheele on 2024-10-20.
 //
 
-import LaunchAtLogin
 import SwiftUI
 import SymbolPicker
 
