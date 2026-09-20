@@ -6,6 +6,7 @@
     {
       "layers" : [
         {
+          "glass" : true,
           "image-name" : "launcher-icon.png",
           "name" : "launcher-icon"
         },
@@ -13,6 +14,7 @@
           "fill" : {
             "solid" : "extended-gray:1.00000,0.50000"
           },
+          "glass" : false,
           "image-name" : "Lines.png",
           "name" : "Lines"
         }
