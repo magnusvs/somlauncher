@@ -26,7 +26,7 @@ struct CreateLaunchItemView: View {
 
     @State private var isAppsSheetOpened = false
     @State private var isUrlSheetOpened = false
-    @State private var allApps: [InstalledApp] = FileManager.default.getInstalledApps(sorted: true)
+    @State private var allApps: [InstalledApp] = []
     private var onDelete: () -> Void
     
     @State private var hasApplicationFolderAccess: Bool = ApplicationsFolderFileBookmark.hasAccess()
@@ -35,12 +35,13 @@ struct CreateLaunchItemView: View {
         launchURL: Binding<URL?>,
         onDelete: @escaping () -> Void
     ) {
+        let apps = FileManager.default.getInstalledApps(sorted: true)
         self._launchURL = launchURL
         self.onDelete = onDelete
         if let url = launchURL.wrappedValue {
             if (url.isFileURL) {
                 _selectedType = State(initialValue: LaunchActionType.App)
-                _selectedApp = State(initialValue: allApps.first(where: { url == $0.url}))
+                _selectedApp = State(initialValue: apps.first(where: { url == $0.url }))
             } else {
                 _selectedType = State(initialValue: LaunchActionType.Url)
                 _urlInput = State(initialValue: url.absoluteString)
@@ -137,6 +138,10 @@ struct CreateLaunchItemView: View {
         .cornerRadius(8)
         .sheet(isPresented: $isAppsSheetOpened) { selectAppSheet }
         .sheet(isPresented: $isUrlSheetOpened) { urlInputSheet }
+        .onAppear {
+            allApps = FileManager.default.getInstalledApps(sorted: true)
+            hasApplicationFolderAccess = ApplicationsFolderFileBookmark.hasAccess()
+        }
     }
 }
 
