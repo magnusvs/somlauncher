@@ -55,6 +55,7 @@ struct UrlInputSheet: View {
                     Text("Confirm")
                 }
                 .buttonStyle(.borderedProminent)
+                .controlSize(.large)
                 .disabled(urlInput.count <= 0)
             }
             .frame(maxWidth: .infinity, alignment: .trailing)

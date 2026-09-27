@@ -184,10 +184,13 @@ struct SuccessView: View {
                 Button("Back to edit") {
                     onDismiss()
                 }
+                .controlSize(.large)
                 Button("Close window") {
                     onDismiss()
                     dismissWindow()
-                }.buttonStyle(.borderedProminent)
+                }
+                .buttonStyle(.borderedProminent)
+                .controlSize(.large)
             }.padding(.bottom, 16)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

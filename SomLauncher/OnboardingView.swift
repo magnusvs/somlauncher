@@ -147,7 +147,9 @@ struct StartSettingsView: View {
             menuBarIconPicker
                 .padding(.top, 16)
             
-            GradientButton(action: onContinue, text: "Continue")
+            Button("Continue", action: onContinue)
+                .buttonStyle(.borderedProminent)
+                .controlSize(.large)
                 .padding(.top, 32)
             Text("Options can be changed later in settings")
                 .font(.caption)
@@ -233,28 +235,12 @@ struct InfoView: View {
             }
             .padding(.vertical, 16)
             
-            GradientButton(action: onContinue, text: "Create first launcher")
+            Button("Create first launcher", action: onContinue)
+                .buttonStyle(.borderedProminent)
+                .controlSize(.large)
                 .padding(.top, 8)
         }
         .fixedSize(horizontal: true, vertical: false)
-    }
-}
-
-
-
-struct GradientButton: View {
-    var action: () -> Void
-    var text: String
-    var body: some View {
-        Button(action: action) {
-            Text(text)
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 6)
-                .background(.blue.gradient)
-                .clipShape(RoundedRectangle(cornerRadius: 6))
-                .foregroundStyle(.white)
-        }
-        .buttonStyle(.plain)
     }
 }
 
@@ -273,7 +259,9 @@ struct WelcomeView: View {
             Text("Let's get you started")
                 .font(.subheadline)
             
-            GradientButton(action: onStart, text: "Continue")
+            Button("Continue", action: onStart)
+                .buttonStyle(.borderedProminent)
+                .controlSize(.large)
                 .padding()
         }
         .fixedSize(horizontal: true, vertical: false)
